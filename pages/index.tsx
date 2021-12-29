@@ -1,6 +1,7 @@
 import Head from 'next/head';
+import Featured from '../components/Featured';
 
-function Home() {
+export default function Home() {
   return (
     <div>
       <Head>
@@ -8,9 +9,7 @@ function Home() {
         <meta name="description" content="pizza" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      homepage
+      <Featured />
     </div>
   );
 }
-
-export default Home;
