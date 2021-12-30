@@ -9,8 +9,8 @@ export default function Navbar() {
           <Image src="/img/telephone.png" alt="" width="32" height="32" />
         </div>
         <div className={styles.texts}>
-          <div className={styles.text}>order now</div>
-          <div className={styles.text}>000 0000 0000</div>
+          <div className={styles.text}>ORDER NOW</div>
+          <div className={styles.text}>031 000 000</div>
         </div>
       </div>
       <div className={styles.item}>
