@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Featured() {
-  const [index, setIndex] = useState(0);
-  const images = [
+  const [index, setIndex] = useState<number>(0);
+  const images: string[] = [
     '/img/featured.png',
     '/img/featured2.png',
     '/img/featured3.png',
