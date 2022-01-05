@@ -1,15 +1,22 @@
 import Image from 'next/image';
-import styles from '../styles/PizzaCard.module.css';
+import styles from '@styles/PizzaCard.module.css';
+import { products } from 'types';
+import Link from 'next/link';
 
-export default function PizzaCard() {
+interface Props {
+  pizza: products;
+}
+
+export default function PizzaCard({ pizza }: Props) {
+  const { img, title, prices, extraOptions, desc, _id } = pizza;
   return (
     <div className={styles.container}>
-      <Image src="/img/pizza.png" alt="" width="500" height="500" />
-      <h1 className={styles.title}>PIZZA</h1>
-      <span className={styles.price}>$50,000</span>
-      <p className={styles.desc}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
+      <Link href={`/product/${_id}`} passHref>
+        <Image src={img} alt="" width="500" height="500" />
+      </Link>
+      <h1 className={styles.title}>{title}</h1>
+      <span className={styles.price}>{prices[0]}원</span>
+      <p className={styles.desc}>{desc}</p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '../styles/Cart.module.css';
+import styles from '@styles/Cart.module.css';
 
 export default function Cart() {
   return (

@@ -1,7 +1,13 @@
+import { InferGetServerSidePropsType } from 'next';
+import { products } from 'types';
 import styles from '../styles/PizzaList.module.css';
 import PizzaCard from './PizzaCard';
 
-export default function PizzaList() {
+interface Props {
+  pizzaList: products[];
+}
+
+export default function PizzaList({ pizzaList }: Props) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>The best pizza in town</h1>
@@ -12,15 +18,9 @@ export default function PizzaList() {
         tempus vitae ligula eget ornare.
       </p>
       <div className={styles.wrapper}>
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
-        <PizzaCard />
+        {pizzaList.map((item) => (
+          <PizzaCard key={item._id} pizza={item} />
+        ))}
       </div>
     </div>
   );

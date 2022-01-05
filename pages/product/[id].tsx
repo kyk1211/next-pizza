@@ -1,36 +1,48 @@
-import styles from '../../styles/Product.module.css';
+import styles from '@styles/Product.module.css';
 import Image from 'next/image';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
+import { products } from 'types';
 
-interface pizza {
-  id: number;
-  img: string;
-  name: string;
-  price: number[];
-  desc: string;
+interface Props {
+  pizza: products;
 }
 
-export default function Product() {
+export default function Product({ pizza }: Props) {
+  const { img, title, prices, extraOptions, desc, _id } = pizza;
+
   const [size, setSize] = useState<1 | 2 | 0>(0);
-  const pizza: pizza = {
-    id: 1,
-    img: '/img/pizza.png',
-    name: 'CAMPAGNOLA',
-    price: [19900, 23900, 27900],
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+  const [extraPrice, setExtraPrice] = useState(0);
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    opt: {
+      text: string;
+      price: number;
+      _id?: number | undefined;
+    }
+  ) => {
+    const checked = e.target.checked;
+
+    if (checked) {
+      setExtraPrice((prev) => prev + Number(e.target.value));
+    } else {
+      setExtraPrice((prev) => prev - Number(e.target.value));
+    }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={pizza.img} layout="fill" alt="" />
+          <Image src={img} layout="fill" alt="" />
         </div>
       </div>
       <div className={styles.right}>
-        <h1 className={styles.title}>{pizza.name}</h1>
-        <span className={styles.price}>{pizza.price[size]}원</span>
-        <p className={styles.desc}>{pizza.desc}</p>
+        <h1 className={styles.title}>{title}</h1>
+        <span className={styles.price}>{prices[size] + extraPrice}원</span>
+        <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose your size</h3>
         <div className={styles.sizes}>
           <div className={styles.size} onClick={() => setSize(0)}>
@@ -48,42 +60,19 @@ export default function Product() {
         </div>
         <h3 className={styles.choose}>Choose additional ingredients</h3>
         <div className={styles.ingredients}>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="double"
-              name="double"
-              className={styles.checkbox}
-            />
-            <label htmlFor="double">Double Ingredients</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="cheese"
-              name="cheese"
-              className={styles.checkbox}
-            />
-            <label htmlFor="cheese">Cheese Ingredients</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="spicy"
-              name="spicy"
-              className={styles.checkbox}
-            />
-            <label htmlFor="spicy">Spicy Ingredients</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="garlic"
-              name="garlic"
-              className={styles.checkbox}
-            />
-            <label htmlFor="garlic">Garlic Ingredients</label>
-          </div>
+          {extraOptions.map((opt) => (
+            <div className={styles.option} key={opt._id}>
+              <input
+                type="checkbox"
+                id={opt.text}
+                name={opt.text}
+                className={styles.checkbox}
+                value={opt.price}
+                onChange={(e) => handleChange(e, opt)}
+              />
+              <label htmlFor={opt.text}>{opt.text}</label>
+            </div>
+          ))}
         </div>
         <div className={styles.add}>
           <input type="number" defaultValue={1} className={styles.quantity} />
@@ -93,3 +82,15 @@ export default function Product() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const res = await axios.get(
+    `http://localhost:3000/api/products/${params?.id}`
+  );
+
+  return {
+    props: {
+      pizza: res.data,
+    },
+  };
+};
