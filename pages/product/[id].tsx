@@ -1,6 +1,6 @@
 import styles from '@styles/Product.module.css';
 import Image from 'next/image';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { products } from 'types';
@@ -9,28 +9,36 @@ interface Props {
   pizza: products;
 }
 
+interface Opt {
+  text: string;
+  price: number;
+  _id?: number | undefined;
+}
+
 export default function Product({ pizza }: Props) {
   const { img, title, prices, extraOptions, desc, _id } = pizza;
 
   const [size, setSize] = useState<1 | 2 | 0>(0);
   const [extraPrice, setExtraPrice] = useState(0);
+  const [quan, setQuan] = useState(1);
+  const [price, setPrice] = useState(prices[size] + extraPrice);
+  const [extra, setExtra] = useState<Opt[]>([]);
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    opt: {
-      text: string;
-      price: number;
-      _id?: number | undefined;
-    }
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, opt: Opt) => {
     const checked = e.target.checked;
 
     if (checked) {
       setExtraPrice((prev) => prev + Number(e.target.value));
+      setExtra((prev) => [...prev, opt]);
     } else {
       setExtraPrice((prev) => prev - Number(e.target.value));
+      setExtra((prev) => prev.filter((item) => item._id !== opt._id));
     }
   };
+
+  useEffect(() => {
+    setPrice(prices[size] + extraPrice);
+  }, [size, extraPrice, prices]);
 
   return (
     <div className={styles.container}>
@@ -41,7 +49,7 @@ export default function Product({ pizza }: Props) {
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{title}</h1>
-        <span className={styles.price}>{prices[size] + extraPrice}원</span>
+        <span className={styles.price}>{price}원</span>
         <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose your size</h3>
         <div className={styles.sizes}>
@@ -75,7 +83,12 @@ export default function Product({ pizza }: Props) {
           ))}
         </div>
         <div className={styles.add}>
-          <input type="number" defaultValue={1} className={styles.quantity} />
+          <input
+            type="number"
+            defaultValue={1}
+            className={styles.quantity}
+            onChange={(e) => setQuan(Number(e.target.value))}
+          />
           <button className={styles.button}>Add to cart</button>
         </div>
       </div>
