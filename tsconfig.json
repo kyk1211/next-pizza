@@ -21,7 +21,9 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@hooks/*": ["hooks/*"],
+      "@slice/*": ["slice/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/mongo.ts"],

@@ -1,7 +1,10 @@
+import { RootState } from 'slice/store';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
+  const quan = useSelector((state: RootState) => state.cart.quan);
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -27,7 +30,7 @@ export default function Navbar() {
       <div className={styles.item}>
         <div className={styles.cart}>
           <Image src="/img/cart.png" alt="" width="30px" height="30px" />
-          <div className={styles.counter}>2</div>
+          <div className={styles.counter}>{quan}</div>
         </div>
       </div>
     </div>

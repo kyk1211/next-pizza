@@ -33,7 +33,13 @@ export default function Featured() {
       >
         {images.map((item, idx) => (
           <div className={styles.imgContainer} key={idx}>
-            <Image src={item} alt="" layout="fill" objectFit="contain" />
+            <Image
+              src={item}
+              alt=""
+              layout="fill"
+              objectFit="contain"
+              priority
+            />
           </div>
         ))}
       </div>

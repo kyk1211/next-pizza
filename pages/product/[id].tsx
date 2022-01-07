@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { products } from 'types';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { addProduct } from '@slice/cartSlice';
 
 interface Props {
   pizza: products;
@@ -22,18 +24,23 @@ export default function Product({ pizza }: Props) {
   const [extraPrice, setExtraPrice] = useState(0);
   const [quan, setQuan] = useState(1);
   const [price, setPrice] = useState(prices[size] + extraPrice);
-  const [extra, setExtra] = useState<Opt[]>([]);
+  const [extras, setExtras] = useState<Opt[]>([]);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, opt: Opt) => {
     const checked = e.target.checked;
 
     if (checked) {
       setExtraPrice((prev) => prev + Number(e.target.value));
-      setExtra((prev) => [...prev, opt]);
+      setExtras((prev) => [...prev, opt]);
     } else {
       setExtraPrice((prev) => prev - Number(e.target.value));
-      setExtra((prev) => prev.filter((item) => item._id !== opt._id));
+      setExtras((prev) => prev.filter((item) => item._id !== opt._id));
     }
+  };
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...pizza, extras, price, quan }));
   };
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export default function Product({ pizza }: Props) {
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={img} layout="fill" alt="" />
+          <Image src={img} layout="fill" alt="" priority />
         </div>
       </div>
       <div className={styles.right}>
@@ -85,11 +92,14 @@ export default function Product({ pizza }: Props) {
         <div className={styles.add}>
           <input
             type="number"
+            min={1}
             defaultValue={1}
             className={styles.quantity}
             onChange={(e) => setQuan(Number(e.target.value))}
           />
-          <button className={styles.button}>Add to cart</button>
+          <button className={styles.button} onClick={handleClick}>
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
