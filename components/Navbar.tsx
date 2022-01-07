@@ -2,6 +2,7 @@ import { RootState } from 'slice/store';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import styles from '../styles/Navbar.module.css';
+import Link from 'next/link';
 
 export default function Navbar() {
   const quan = useSelector((state: RootState) => state.cart.quan);
@@ -27,12 +28,16 @@ export default function Navbar() {
           <li className={styles.listItem}>Contact</li>
         </ul>
       </div>
-      <div className={styles.item}>
-        <div className={styles.cart}>
-          <Image src="/img/cart.png" alt="" width="30px" height="30px" />
-          <div className={styles.counter}>{quan}</div>
-        </div>
-      </div>
+      <Link href={`/cart`} passHref>
+        <a>
+          <div className={styles.item}>
+            <div className={styles.cart}>
+              <Image src="/img/cart.png" alt="" width="30px" height="30px" />
+              <div className={styles.counter}>{quan}</div>
+            </div>
+          </div>
+        </a>
+      </Link>
     </div>
   );
 }

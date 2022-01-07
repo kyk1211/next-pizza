@@ -1,10 +1,16 @@
-export interface products {
-  _id?: number;
+interface products {
+  _id?: string;
   title: string;
   desc: string;
   img: string;
   prices: number[];
-  extraOptions: { text: string; price: number; _id?: number }[];
+  extraOptions: Opts[];
   createdAt: Date;
   updatedAT: Date;
+}
+
+interface Opts {
+  text: string;
+  price: number;
+  _id?: string;
 }

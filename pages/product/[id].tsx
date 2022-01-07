@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
-import { products } from 'types';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { addProduct } from '@slice/cartSlice';
 
@@ -11,31 +10,24 @@ interface Props {
   pizza: products;
 }
 
-interface Opt {
-  text: string;
-  price: number;
-  _id?: number | undefined;
-}
-
 export default function Product({ pizza }: Props) {
   const { img, title, prices, extraOptions, desc, _id } = pizza;
-
   const [size, setSize] = useState<1 | 2 | 0>(0);
   const [extraPrice, setExtraPrice] = useState(0);
   const [quan, setQuan] = useState(1);
   const [price, setPrice] = useState(prices[size] + extraPrice);
-  const [extras, setExtras] = useState<Opt[]>([]);
+  const [extras, setExtras] = useState<Opts[]>([]);
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>, opt: Opt) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, opts: Opts) => {
     const checked = e.target.checked;
 
     if (checked) {
       setExtraPrice((prev) => prev + Number(e.target.value));
-      setExtras((prev) => [...prev, opt]);
+      setExtras((prev) => [...prev, opts]);
     } else {
       setExtraPrice((prev) => prev - Number(e.target.value));
-      setExtras((prev) => prev.filter((item) => item._id !== opt._id));
+      setExtras((prev) => prev.filter((item) => item._id !== opts._id));
     }
   };
 
@@ -51,12 +43,12 @@ export default function Product({ pizza }: Props) {
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={img} layout="fill" alt="" priority />
+          <Image src={img} layout="fill" objectFit="contain" alt="" priority />
         </div>
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{title}</h1>
-        <span className={styles.price}>{price}원</span>
+        <span className={styles.price}>{price}￦</span>
         <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose your size</h3>
         <div className={styles.sizes}>
@@ -110,7 +102,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const res = await axios.get(
     `http://localhost:3000/api/products/${params?.id}`
   );
-
+  console.log(res.data);
   return {
     props: {
       pizza: res.data,
