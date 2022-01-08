@@ -3,10 +3,39 @@ import styles from '@styles/Cart.module.css';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { RootState } from '@slice/store';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Link from 'next/link';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
+
+  useEffect(() => {
+    axios({
+      method: 'POST',
+      url: '/api/payment',
+      headers: {
+        Authorization: 'KakaoAK c692001d620992e966076941fd038b3f',
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      params: {
+        cid: 'TC0ONETIME',
+        partner_order_id: 'pizzapizza',
+        partner_user_id: 'asdfasdf',
+        item_name: 'pizza',
+        quantity: 1,
+        total_amount: 12000,
+        tax_free_amount: 0,
+        approval_url: `http://localhost:3000/order/${cart.products[0]._id}`,
+        fail_url: `http://localhost:3000`,
+        cancel_url: `http://localhost:3000/product/${cart.products[0]._id}`,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -78,6 +107,11 @@ export default function Cart() {
           </div>
           <button className={styles.button}>CHECKOUT NOW!</button>
         </div>
+        <Link href={''} passHref>
+          <button>
+            <a>결제 이동</a>
+          </button>
+        </Link>
       </div>
     </div>
   );
