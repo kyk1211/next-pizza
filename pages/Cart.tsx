@@ -6,11 +6,25 @@ import { RootState } from '@slice/store';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { removeProduct } from '@slice/cartSlice';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const [payUrl, setPayUrl] = useState('');
+
+  const params = {
+    cid: 'TC0ONETIME',
+    partner_order_id: 'pizzapizza',
+    partner_user_id: 'asdfasdf',
+    item_name: cart.products[0].title,
+    quantity: cart.quan,
+    total_amount: cart.total,
+    tax_free_amount: 0,
+    approval_url: `http://localhost:3000/orders/${cart.products[0]._id}`,
+    fail_url: `http://localhost:3000`,
+    cancel_url: `http://localhost:3000/cart`,
+  };
 
   useEffect(() => {
     axios({
@@ -20,18 +34,7 @@ export default function Cart() {
         Authorization: 'KakaoAK c692001d620992e966076941fd038b3f',
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
-      params: {
-        cid: 'TC0ONETIME',
-        partner_order_id: 'pizzapizza',
-        partner_user_id: 'asdfasdf',
-        item_name: 'pizza',
-        quantity: 1,
-        total_amount: 12000,
-        tax_free_amount: 0,
-        approval_url: `http://localhost:3000/orders/${cart.products[0]._id}`,
-        fail_url: `http://localhost:3000`,
-        cancel_url: `http://localhost:3000/cart`,
-      },
+      params: params,
     }).then((res) => {
       setPayUrl(res.data.next_redirect_pc_url);
     });
@@ -50,6 +53,7 @@ export default function Cart() {
               <th>Price</th>
               <th>Quantity</th>
               <th>Total</th>
+              <th>Cancel</th>
             </tr>
           </thead>
           <tbody>
@@ -85,6 +89,13 @@ export default function Cart() {
                   <span className={styles.total}>{`${
                     product.price * product.quan
                   } ￦`}</span>
+                </td>
+                <td>
+                  <button
+                    onClick={() => dispatch(removeProduct({ ...product }))}
+                  >
+                    &times;
+                  </button>
                 </td>
               </tr>
             ))}

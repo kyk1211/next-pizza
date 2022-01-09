@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 
 interface cartInfo extends products {
   price: number;
@@ -10,9 +10,17 @@ interface InitialState {
   products: cartInfo[];
   quan: number;
   total: number;
+  id: string;
+  title: string;
 }
 
-const initialState: InitialState = { products: [], quan: 0, total: 0 };
+const initialState: InitialState = {
+  products: [],
+  quan: 0,
+  total: 0,
+  id: '',
+  title: '',
+};
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -23,11 +31,18 @@ const cartSlice = createSlice({
       state.quan += 1;
       state.total += action.payload.price * action.payload.quan;
     },
+    removeProduct: (state, action: PayloadAction<cartInfo>) => {
+      state.total -= action.payload.price;
+      state.quan -= 1;
+      state.products = state.products.filter(
+        (item) => JSON.stringify(item) !== JSON.stringify(action.payload)
+      );
+    },
     reset: (state) => {
       state = initialState;
     },
   },
 });
 
-export const { addProduct, reset } = cartSlice.actions;
+export const { addProduct, reset, removeProduct } = cartSlice.actions;
 export default cartSlice.reducer;
