@@ -10,11 +10,12 @@ import Link from 'next/link';
 export default function Cart() {
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
+  const [payUrl, setPayUrl] = useState('');
 
   useEffect(() => {
     axios({
       method: 'POST',
-      url: '/api/payment',
+      url: '/api/payment/ready',
       headers: {
         Authorization: 'KakaoAK c692001d620992e966076941fd038b3f',
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -27,12 +28,12 @@ export default function Cart() {
         quantity: 1,
         total_amount: 12000,
         tax_free_amount: 0,
-        approval_url: `http://localhost:3000/order/${cart.products[0]._id}`,
+        approval_url: `http://localhost:3000/orders/${cart.products[0]._id}`,
         fail_url: `http://localhost:3000`,
-        cancel_url: `http://localhost:3000/product/${cart.products[0]._id}`,
+        cancel_url: `http://localhost:3000/cart`,
       },
     }).then((res) => {
-      console.log(res);
+      setPayUrl(res.data.next_redirect_pc_url);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -105,13 +106,16 @@ export default function Cart() {
             <b className={styles.totalTextTitle}>Total:</b>
             {`${cart.total} ￦`}
           </div>
-          <button className={styles.button}>CHECKOUT NOW!</button>
+          <Link href={payUrl} passHref>
+            <div className={styles.button}>
+              <Image
+                src="/img/payment_icon_yellow_large.png"
+                alt=""
+                layout="fill"
+              />
+            </div>
+          </Link>
         </div>
-        <Link href={''} passHref>
-          <button>
-            <a>결제 이동</a>
-          </button>
-        </Link>
       </div>
     </div>
   );

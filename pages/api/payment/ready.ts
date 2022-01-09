@@ -1,14 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import axios from 'axios';
-import Cors from 'cors';
-
-const cors = Cors({
-  methods: ['POST'],
-});
-
-// function middleware(req, res, fn) {
-//   return new Promise();
-// }
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,7 +17,6 @@ export default async function handler(
         },
         params,
       });
-      console.log(data.data);
       res.status(200).json(data.data);
     } catch (err) {
       res.status(500).json(err);

@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   const { method } = req;
 
-  dbConnect();
+  await dbConnect();
 
   if (method === 'GET') {
     try {
