@@ -1,7 +1,7 @@
 import { RootState } from 'slice/store';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import styles from '../styles/Navbar.module.css';
+import styles from '@styles/Navbar.module.css';
 import Link from 'next/link';
 
 export default function Navbar() {

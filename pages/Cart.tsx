@@ -3,18 +3,22 @@ import styles from '@styles/Cart.module.css';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { RootState } from '@slice/store';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { removeProduct } from '@slice/cartSlice';
-import { useRouter } from 'next/router';
+import Modal from '@components/Modal';
+import { updateInfo } from '@slice/orderSlice';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const [payUrl, setPayUrl] = useState('');
-  const [toggle, setToggle] = useState(false);
+  const [show, setShow] = useState(false);
   const [tid, setTid] = useState('');
+  const [name, setName] = useState('');
+  const [addr, setAddr] = useState('');
+  const [phone, setPhone] = useState('');
 
   const payStartClick = () => {
     axios({
@@ -26,8 +30,12 @@ export default function Cart() {
     }).then((res) => {
       setPayUrl(res.data.next_redirect_pc_url);
       setTid(res.data.tid);
-      setToggle(true);
+      setShow(true);
     });
+  };
+
+  const onCloseModal = () => {
+    setShow(false);
   };
 
   return (
@@ -106,27 +114,50 @@ export default function Cart() {
             <b className={styles.totalTextTitle}>Total:</b>
             {`${cart.total} ￦`}
           </div>
-          {toggle ? (
-            <Link href={payUrl} passHref>
-              <a>
-                <div className={styles.button}>
+          <button className={styles.button} onClick={payStartClick}>
+            결제 정보 입력하기
+          </button>
+          <Modal show={show} onCloseModal={onCloseModal}>
+            <form
+              onSubmit={() =>
+                dispatch(
+                  updateInfo({
+                    name,
+                    addr,
+                    phone,
+                  })
+                )
+              }
+            >
+              <input
+                value={name}
+                placeholder="이름"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                value={addr}
+                placeholder="주소"
+                onChange={(e) => setAddr(e.target.value)}
+              />
+              <input
+                value={phone}
+                placeholder="전화번호"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <button type="submit">제출</button>
+            </form>
+            <div className={styles.button}>
+              <Link href={payUrl} passHref>
+                <a>
                   <Image
                     src="/img/payment_icon_yellow_large.png"
                     alt=""
                     layout="fill"
                   />
-                </div>
-              </a>
-            </Link>
-          ) : cart.total !== 0 ? (
-            <button className={styles.button} onClick={payStartClick}>
-              결제하기
-            </button>
-          ) : (
-            <button className={styles.button} disabled>
-              결제하기
-            </button>
-          )}
+                </a>
+              </Link>
+            </div>
+          </Modal>
         </div>
       </div>
     </div>

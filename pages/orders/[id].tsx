@@ -13,10 +13,6 @@ export default function Order() {
     if (idx - status > 1) return styles.undone;
   };
 
-  useEffect(() => {
-    dispatch(reset());
-  }, [dispatch]);
-
   return (
     <div className={styles.container}>
       <div className={styles.left}>
