@@ -11,7 +11,7 @@ export default async function handler(
     query: { id },
   } = req;
 
-  dbConnect();
+  await dbConnect();
 
   switch (method) {
     case 'PUT':

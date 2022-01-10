@@ -10,7 +10,13 @@ export default function Navbar() {
     <div className={styles.container}>
       <div className={styles.item}>
         <div className={styles.callButton}>
-          <Image src="/img/telephone.png" alt="" width="32" height="32" />
+          <Image
+            src="/img/telephone.png"
+            alt=""
+            width={32}
+            height={32}
+            layout="fixed"
+          />
         </div>
         <div className={styles.texts}>
           <div className={styles.text}>ORDER NOW</div>

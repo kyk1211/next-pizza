@@ -10,16 +10,12 @@ interface InitialState {
   products: cartInfo[];
   quan: number;
   total: number;
-  id: string;
-  title: string;
 }
 
 const initialState: InitialState = {
   products: [],
   quan: 0,
   total: 0,
-  id: '',
-  title: '',
 };
 
 const cartSlice = createSlice({
@@ -32,7 +28,7 @@ const cartSlice = createSlice({
       state.total += action.payload.price * action.payload.quan;
     },
     removeProduct: (state, action: PayloadAction<cartInfo>) => {
-      state.total -= action.payload.price;
+      state.total -= action.payload.price * action.payload.quan;
       state.quan -= 1;
       state.products = state.products.filter(
         (item) => JSON.stringify(item) !== JSON.stringify(action.payload)

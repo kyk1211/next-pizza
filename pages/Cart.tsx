@@ -7,39 +7,28 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { removeProduct } from '@slice/cartSlice';
+import { useRouter } from 'next/router';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const [payUrl, setPayUrl] = useState('');
+  const [toggle, setToggle] = useState(false);
+  const [tid, setTid] = useState('');
 
-  const params = {
-    cid: 'TC0ONETIME',
-    partner_order_id: 'pizzapizza',
-    partner_user_id: 'asdfasdf',
-    item_name: cart.products[0].title,
-    quantity: cart.quan,
-    total_amount: cart.total,
-    tax_free_amount: 0,
-    approval_url: `http://localhost:3000/orders/${cart.products[0]._id}`,
-    fail_url: `http://localhost:3000`,
-    cancel_url: `http://localhost:3000/cart`,
-  };
-
-  useEffect(() => {
+  const payStartClick = () => {
     axios({
       method: 'POST',
       url: '/api/payment/ready',
-      headers: {
-        Authorization: 'KakaoAK c692001d620992e966076941fd038b3f',
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      data: {
+        ...cart,
       },
-      params: params,
     }).then((res) => {
       setPayUrl(res.data.next_redirect_pc_url);
+      setTid(res.data.tid);
+      setToggle(true);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   return (
     <div className={styles.container}>
@@ -117,15 +106,27 @@ export default function Cart() {
             <b className={styles.totalTextTitle}>Total:</b>
             {`${cart.total} ￦`}
           </div>
-          <Link href={payUrl} passHref>
-            <div className={styles.button}>
-              <Image
-                src="/img/payment_icon_yellow_large.png"
-                alt=""
-                layout="fill"
-              />
-            </div>
-          </Link>
+          {toggle ? (
+            <Link href={payUrl} passHref>
+              <a>
+                <div className={styles.button}>
+                  <Image
+                    src="/img/payment_icon_yellow_large.png"
+                    alt=""
+                    layout="fill"
+                  />
+                </div>
+              </a>
+            </Link>
+          ) : cart.total !== 0 ? (
+            <button className={styles.button} onClick={payStartClick}>
+              결제하기
+            </button>
+          ) : (
+            <button className={styles.button} disabled>
+              결제하기
+            </button>
+          )}
         </div>
       </div>
     </div>

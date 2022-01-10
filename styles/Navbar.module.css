@@ -35,6 +35,7 @@
 .texts {
   margin-left: 20px;
   color: white;
+  width: max-content;
 }
 
 .text:first-child {

@@ -1,13 +1,21 @@
 import styles from '../../styles/Order.module.css';
 import Image from 'next/image';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { reset } from '@slice/cartSlice';
+import { useEffect } from 'react';
 
 export default function Order() {
+  const dispatch = useAppDispatch();
   const status = 0;
   const statusClass = (idx: number) => {
     if (idx - status < 1) return styles.done;
     if (idx - status === 1) return styles.inProgress;
     if (idx - status > 1) return styles.undone;
   };
+
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
@@ -55,13 +63,13 @@ export default function Order() {
             </div>
           </div>
           <div className={statusClass(1)}>
-            <Image alt="" src={'/img/bake.png'} width={30} height={30} />
+            <Image alt="" src="/img/bake.png" width={30} height={30} />
             <span>Preparing</span>
             <div className={styles.checkedIcon}>
               <Image
                 className={styles.checkedIcon}
                 alt=""
-                src={'/img/checked.png'}
+                src="/img/checked.png"
                 width={20}
                 height={20}
               />
@@ -74,20 +82,20 @@ export default function Order() {
               <Image
                 className={styles.checkedIcon}
                 alt=""
-                src={'/img/checked.png'}
+                src="/img/checked.png"
                 width={20}
                 height={20}
               />
             </div>
           </div>
           <div className={statusClass(3)}>
-            <Image alt="" src={'/img/delivered.png'} width={30} height={30} />
+            <Image alt="" src="/img/delivered.png" width={30} height={30} />
             <span>Delivered</span>
             <div className={styles.checkedIcon}>
               <Image
                 className={styles.checkedIcon}
                 alt=""
-                src={'/img/checked.png'}
+                src="/img/checked.png"
                 width={20}
                 height={20}
               />

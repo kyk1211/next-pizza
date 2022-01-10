@@ -29,7 +29,7 @@ const store = configureStore({
     }).concat(logger),
 });
 const persistor = persistStore(store);
-
+// persistor.purge();
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
