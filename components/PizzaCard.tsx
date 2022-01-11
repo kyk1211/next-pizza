@@ -17,7 +17,9 @@ export default function PizzaCard({ pizza }: Props) {
         </a>
       </Link>
       <h1 className={styles.title}>{title}</h1>
-      <span className={styles.price}>{prices[0]}￦</span>
+      <span
+        className={styles.price}
+      >{`Small: ${prices[0]}￦, Medium: ${prices[1]}￦, Large: ${prices[2]}￦`}</span>
       <p className={styles.desc}>{desc}</p>
     </div>
   );

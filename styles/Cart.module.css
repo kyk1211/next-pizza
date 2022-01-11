@@ -60,6 +60,38 @@
   position: relative;
 }
 
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.formButton {
+  width: 100px;
+  cursor: pointer;
+  margin-top: 10px;
+  position: relative;
+}
+
+.label {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.p {
+  margin: 0;
+  text-align: left;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
 @media screen and (max-width: 480px) {
   .container {
     flex-direction: column;

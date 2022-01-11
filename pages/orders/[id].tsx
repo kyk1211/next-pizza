@@ -10,16 +10,22 @@ import { useRouter } from 'next/router';
 
 export default function Order() {
   const router = useRouter();
+  const { id, pg_token } = router.query;
   const dispatch = useAppDispatch();
   const cart = useSelector((state: RootState) => state.cart);
   const orderInfo = useSelector((state: RootState) => state.order);
+  const [status, setStatus] = useState(0);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const data = {
-    ...cart,
-    ...orderInfo,
+    orderId: cart.id,
+    customer: orderInfo.name,
+    address: orderInfo.addr,
+    phoneNumber: orderInfo.phone,
+    total: cart.total,
+    tid: orderInfo.tid,
   };
 
-  const [status, setStatus] = useState(0);
   const statusClass = (idx: number) => {
     if (idx - status < 1) return styles.done;
     if (idx - status === 1) return styles.inProgress;
@@ -31,7 +37,7 @@ export default function Order() {
       axios.post('/api/orders', data).then((res) => console.log(res));
       dispatch(reset());
     } catch (err) {
-      router.replace('/cart');
+      console.log(err);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

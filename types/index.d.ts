@@ -6,7 +6,7 @@ interface products {
   prices: number[];
   extraOptions: Opts[];
   createdAt: Date;
-  updatedAT: Date;
+  updatedAt: Date;
 }
 
 interface Opts {

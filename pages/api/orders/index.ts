@@ -10,9 +10,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const data = req.body;
 
   const info = {
-    customer: data.name,
-    address: data.addr,
+    orderId: data.orderId,
+    customer: data.customer,
+    address: data.address,
+    phoneNumber: data.phoneNumber,
     total: data.total,
+    tid: data.tid,
   };
 
   if (method === 'POST') {
