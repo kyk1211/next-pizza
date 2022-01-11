@@ -5,12 +5,14 @@ interface initialState {
   name: string;
   phone: string;
   addr: string;
+  tid: string;
 }
 
 const initialState: initialState = {
   name: '',
   phone: '',
   addr: '',
+  tid: '',
 };
 
 const orderSlice = createSlice({
@@ -21,6 +23,7 @@ const orderSlice = createSlice({
       state.name = action.payload.name;
       state.phone = action.payload.phone;
       state.addr = action.payload.addr;
+      state.tid = action.payload.tid;
     },
   },
   extraReducers: (builder) => {

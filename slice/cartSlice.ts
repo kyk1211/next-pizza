@@ -10,12 +10,14 @@ interface InitialState {
   products: cartInfo[];
   quan: number;
   total: number;
+  id: string;
 }
 
 const initialState: InitialState = {
   products: [],
   quan: 0,
   total: 0,
+  id: '',
 };
 
 const cartSlice = createSlice({
@@ -34,11 +36,14 @@ const cartSlice = createSlice({
         (item) => JSON.stringify(item) !== JSON.stringify(action.payload)
       );
     },
+    setId: (state) => {
+      state.id = nanoid();
+    },
     reset: (state) => {
       state = initialState;
     },
   },
 });
 
-export const { addProduct, reset, removeProduct } = cartSlice.actions;
+export const { addProduct, reset, removeProduct, setId } = cartSlice.actions;
 export default cartSlice.reducer;

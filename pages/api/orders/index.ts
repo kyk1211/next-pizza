@@ -7,9 +7,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   await dbConnect();
 
+  const data = req.body;
+
+  const info = {
+    customer: data.name,
+    address: data.addr,
+    total: data.total,
+  };
+
   if (method === 'POST') {
     try {
-      const order = await Order.create(req.body);
+      const order = await Order.create(info);
       res.status(201).json(order);
     } catch (err) {
       res.status(500).json(err);

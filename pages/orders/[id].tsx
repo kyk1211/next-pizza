@@ -1,17 +1,40 @@
 import styles from '../../styles/Order.module.css';
 import Image from 'next/image';
 import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useEffect, useState } from 'react';
 import { reset } from '@slice/cartSlice';
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@slice/store';
+import { useRouter } from 'next/router';
 
 export default function Order() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const status = 0;
+  const cart = useSelector((state: RootState) => state.cart);
+  const orderInfo = useSelector((state: RootState) => state.order);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const data = {
+    ...cart,
+    ...orderInfo,
+  };
+
+  const [status, setStatus] = useState(0);
   const statusClass = (idx: number) => {
     if (idx - status < 1) return styles.done;
     if (idx - status === 1) return styles.inProgress;
     if (idx - status > 1) return styles.undone;
   };
+
+  useEffect(() => {
+    try {
+      axios.post('/api/orders', data).then((res) => console.log(res));
+      dispatch(reset());
+    } catch (err) {
+      router.replace('/cart');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -55,11 +78,18 @@ export default function Order() {
                 src={'/img/checked.png'}
                 width={20}
                 height={20}
+                layout="fixed"
               />
             </div>
           </div>
           <div className={statusClass(1)}>
-            <Image alt="" src="/img/bake.png" width={30} height={30} />
+            <Image
+              alt=""
+              src="/img/bake.png"
+              width={30}
+              height={30}
+              layout="fixed"
+            />
             <span>Preparing</span>
             <div className={styles.checkedIcon}>
               <Image
@@ -68,6 +98,7 @@ export default function Order() {
                 src="/img/checked.png"
                 width={20}
                 height={20}
+                layout="fixed"
               />
             </div>
           </div>
@@ -81,6 +112,7 @@ export default function Order() {
                 src="/img/checked.png"
                 width={20}
                 height={20}
+                layout="fixed"
               />
             </div>
           </div>
@@ -94,6 +126,7 @@ export default function Order() {
                 src="/img/checked.png"
                 width={20}
                 height={20}
+                layout="fixed"
               />
             </div>
           </div>

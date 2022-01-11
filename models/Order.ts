@@ -16,13 +16,13 @@ const OrderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    tid: {
+      type: String,
+      required: true,
+    },
     status: {
       type: Number,
       default: 0,
-    },
-    method: {
-      type: Number,
-      required: true,
     },
   },
   { timestamps: true }
