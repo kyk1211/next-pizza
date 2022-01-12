@@ -129,6 +129,10 @@
     height: 25px;
   }
 
+  .quantity {
+    width: 75px;
+  }
+
   .quantity,
   .button {
     height: 50px;

@@ -16,13 +16,11 @@ export default async function handler(
         item_name:
           cart.products.length > 1
             ? cart.products[0].title + '...'
-            : cart.products.length === 0
-            ? ''
             : cart.products[0].title,
         quantity: cart.quan,
         total_amount: cart.total,
         tax_free_amount: 0,
-        approval_url: `http://localhost:3000/orders/${cart.id}`,
+        approval_url: `http://localhost:3000/check`,
         fail_url: `http://localhost:3000`,
         cancel_url: `http://localhost:3000/cart`,
       };

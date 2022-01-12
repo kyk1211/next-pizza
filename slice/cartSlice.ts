@@ -40,7 +40,7 @@ const cartSlice = createSlice({
       state.id = nanoid();
     },
     reset: (state) => {
-      state = initialState;
+      return initialState;
     },
   },
 });

@@ -2,25 +2,17 @@ import dbConnect from '@utils/mongo';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Order from '@models/Order';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { method } = req;
 
   await dbConnect();
 
-  const data = req.body;
-
-  const info = {
-    orderId: data.orderId,
-    customer: data.customer,
-    address: data.address,
-    phoneNumber: data.phoneNumber,
-    total: data.total,
-    tid: data.tid,
-  };
-
   if (method === 'POST') {
     try {
-      const order = await Order.create(info);
+      const order = await Order.create(req.body);
       res.status(201).json(order);
     } catch (err) {
       res.status(500).json(err);
@@ -35,6 +27,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(500).json(err);
     }
   }
-};
-
-export default handler;
+}

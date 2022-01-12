@@ -1,30 +1,12 @@
 import styles from '../../styles/Order.module.css';
 import Image from 'next/image';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { reset } from '@slice/cartSlice';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { RootState } from '@slice/store';
 import { useRouter } from 'next/router';
 
 export default function Order() {
   const router = useRouter();
-  const { id, pg_token } = router.query;
-  const dispatch = useAppDispatch();
-  const cart = useSelector((state: RootState) => state.cart);
-  const orderInfo = useSelector((state: RootState) => state.order);
-  const [status, setStatus] = useState(0);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const data = {
-    orderId: cart.id,
-    customer: orderInfo.name,
-    address: orderInfo.addr,
-    phoneNumber: orderInfo.phone,
-    total: cart.total,
-    tid: orderInfo.tid,
-  };
+  let status = 0;
 
   const statusClass = (idx: number) => {
     if (idx - status < 1) return styles.done;
@@ -33,13 +15,7 @@ export default function Order() {
   };
 
   useEffect(() => {
-    try {
-      axios.post('/api/orders', data).then((res) => console.log(res));
-      dispatch(reset());
-    } catch (err) {
-      console.log(err);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(reset());
   }, []);
 
   return (
@@ -58,16 +34,16 @@ export default function Order() {
             <tbody>
               <tr className={styles.tr}>
                 <td>
-                  <span className={styles.id}>123123123</span>
+                  <span className={styles.id}>cart.id</span>
                 </td>
                 <td>
-                  <span className={styles.name}>John</span>
+                  <span className={styles.name}>orderInfo.name</span>
                 </td>
                 <td>
-                  <span className={styles.address}>Elton st. 212-33 LA</span>
+                  <span className={styles.address}>orderInfo.addr</span>
                 </td>
                 <td>
-                  <span className={styles.total}>$39.80</span>
+                  <span className={styles.total}>cart.total</span>
                 </td>
               </tr>
             </tbody>
@@ -142,13 +118,15 @@ export default function Order() {
         <div className={styles.wrapper}>
           <h2 className={styles.title}>CART TOTAL</h2>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Subtotal:</b>796000
+            <b className={styles.totalTextTitle}>Subtotal:</b>
+            cart.total
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Discount:</b>0
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Total:</b>796000
+            <b className={styles.totalTextTitle}>Total:</b>
+            cart.total
           </div>
           <button disabled className={styles.button}>
             PAID!
@@ -157,4 +135,7 @@ export default function Order() {
       </div>
     </div>
   );
+}
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
 }

@@ -7,8 +7,14 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const params = req.query;
-
+      const { tid, pg_token, cartId } = req.body;
+      const params = {
+        tid,
+        pg_token,
+        cid: 'TC0ONETIME',
+        partner_order_id: cartId,
+        partner_user_id: cartId,
+      };
       const data = await axios({
         method: 'POST',
         url: 'https://kapi.kakao.com/v1/payment/approve',

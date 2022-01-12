@@ -55,6 +55,7 @@ export default function Cart() {
 
   useEffect(() => {
     dispatch(setId());
+    dispatch(updateInfo({ name: '', addr: '', tid: '', phone: '' }));
   }, [dispatch]);
 
   return (
@@ -91,7 +92,7 @@ export default function Cart() {
                 <td>
                   {product.extras.map((extra, idx) => (
                     <span className={styles.extras} key={idx}>
-                      {extra.text}
+                      {`${extra.text}, `}
                     </span>
                   ))}
                 </td>

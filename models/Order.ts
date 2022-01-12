@@ -19,6 +19,7 @@ const OrderSchema = new mongoose.Schema(
     phoneNumber: {
       type: String,
       required: true,
+      maxlength: 15,
     },
     total: {
       type: Number,
@@ -27,14 +28,13 @@ const OrderSchema = new mongoose.Schema(
     tid: {
       type: String,
       required: true,
-      unique: true,
     },
     status: {
       type: Number,
       default: 0,
     },
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 
 export default mongoose.models.Order || mongoose.model('Order', OrderSchema);

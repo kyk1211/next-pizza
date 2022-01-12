@@ -28,7 +28,7 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(reset, (state) => {
-      state = initialState;
+      return initialState;
     });
   },
 });
