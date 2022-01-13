@@ -33,6 +33,7 @@ export default function Product({ pizza }: Props) {
 
   const handleClick = () => {
     dispatch(addProduct({ ...pizza, extras, price, quan }));
+    alert('장바구니에 추가하였습니다.');
   };
 
   useEffect(() => {

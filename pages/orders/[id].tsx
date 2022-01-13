@@ -1,11 +1,16 @@
-import styles from '../../styles/Order.module.css';
+import styles from '@styles/Order.module.css';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { reset } from '@slice/cartSlice';
 import { useRouter } from 'next/router';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import axios from 'axios';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 
-export default function Order() {
-  const router = useRouter();
+export default function Order({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const dispatch = useAppDispatch();
   let status = 0;
 
   const statusClass = (idx: number) => {
@@ -16,7 +21,7 @@ export default function Order() {
 
   useEffect(() => {
     dispatch(reset());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
@@ -34,16 +39,16 @@ export default function Order() {
             <tbody>
               <tr className={styles.tr}>
                 <td>
-                  <span className={styles.id}>cart.id</span>
+                  <span className={styles.id}>{data.orderId}</span>
                 </td>
                 <td>
-                  <span className={styles.name}>orderInfo.name</span>
+                  <span className={styles.name}>{data.customer}</span>
                 </td>
                 <td>
-                  <span className={styles.address}>orderInfo.addr</span>
+                  <span className={styles.address}>{data.address}</span>
                 </td>
                 <td>
-                  <span className={styles.total}>cart.total</span>
+                  <span className={styles.total}>{data.total}￦</span>
                 </td>
               </tr>
             </tbody>
@@ -119,14 +124,14 @@ export default function Order() {
           <h2 className={styles.title}>CART TOTAL</h2>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Subtotal:</b>
-            cart.total
+            {data.total}￦
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Discount:</b>0
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Total:</b>
-            cart.total
+            {data.total}￦
           </div>
           <button disabled className={styles.button}>
             PAID!
@@ -136,6 +141,17 @@ export default function Order() {
     </div>
   );
 }
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { params } = ctx;
+  const res = await axios({
+    url: `http://localhost:3000/api/orders/${params?.id}`,
+    method: 'GET',
+  });
+
+  return {
+    props: {
+      data: res.data,
+    },
+  };
+};
