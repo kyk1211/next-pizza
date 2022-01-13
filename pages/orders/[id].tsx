@@ -11,7 +11,7 @@ export default function Order({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const dispatch = useAppDispatch();
-  let status = 0;
+  let status = data.status;
 
   const statusClass = (idx: number) => {
     if (idx - status < 1) return styles.done;

@@ -23,17 +23,21 @@ export default function Cart() {
   const [phone, setPhone] = useState(orderInfo.phone || '');
 
   const payStartClick = () => {
-    axios({
-      method: 'POST',
-      url: '/api/payment/ready',
-      data: {
-        ...cart,
-      },
-    }).then((res) => {
-      setPayUrl(res.data.next_redirect_pc_url);
-      setTid(res.data.tid);
-      setShow(true);
-    });
+    if (cart.products.length !== 0) {
+      axios({
+        method: 'POST',
+        url: '/api/payment/ready',
+        data: {
+          ...cart,
+        },
+      }).then((res) => {
+        setPayUrl(res.data.next_redirect_pc_url);
+        setTid(res.data.tid);
+        setShow(true);
+      });
+    } else {
+      alert('장바구니가 비었습니다');
+    }
   };
 
   const onCloseModal = () => {
@@ -51,6 +55,7 @@ export default function Cart() {
       })
     );
     setBtn(true);
+    setShow(false);
   };
 
   useEffect(() => {
@@ -134,50 +139,14 @@ export default function Cart() {
             <b className={styles.totalTextTitle}>Total:</b>
             {`${cart.total} ￦`}
           </div>
-          <button className={styles.button} onClick={payStartClick}>
-            결제 정보 입력하기
-          </button>
-          <Modal show={show} onCloseModal={onCloseModal}>
-            <form onSubmit={handleSubmit} className={styles.formContainer}>
-              <label className={styles.lable}>
-                <p className={styles.p}>이름</p>
-                <input
-                  required
-                  value={name}
-                  placeholder="이름"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </label>
-              <label className={styles.lable}>
-                <p className={styles.p}>주소</p>
-                <input
-                  required
-                  value={addr}
-                  placeholder="주소"
-                  onChange={(e) => setAddr(e.target.value)}
-                />
-              </label>
-              <label className={styles.lable}>
-                <p className={styles.p}>전화번호</p>
-                <input
-                  required
-                  value={phone}
-                  placeholder="전화번호"
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </label>
-              <button type="submit" className={styles.formButton}>
-                제출
-              </button>
-            </form>
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <button className={styles.button} onClick={payStartClick}>
+              결제 정보 입력하기
+            </button>
             {btn && (
               <div className={styles.linkContainer}>
                 <Link href={payUrl} passHref>
-                  <a
-                    style={{
-                      marginBottom: '20px',
-                    }}
-                  >
+                  <a>
                     <div className={styles.button}>
                       <Image
                         src="/img/payment_icon_yellow_large.png"
@@ -189,9 +158,60 @@ export default function Cart() {
                 </Link>
               </div>
             )}
-          </Modal>
+          </div>
         </div>
       </div>
+      <Modal show={show} onCloseModal={onCloseModal} name="주문 정보 입력">
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
+          <div className={styles.labelContainer}>
+            <label className={styles.label} htmlFor="name">
+              이름
+            </label>
+            <input
+              className={styles.input}
+              required
+              type="text"
+              value={name}
+              name="name"
+              placeholder="이름"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className={styles.labelContainer}>
+            <label className={styles.label} htmlFor="address">
+              주소
+            </label>
+            <input
+              className={styles.input}
+              type="text"
+              required
+              value={addr}
+              name="address"
+              placeholder="주소"
+              onChange={(e) => setAddr(e.target.value)}
+            />
+          </div>
+          <div className={styles.labelContainer}>
+            <label className={styles.label} htmlFor="phone">
+              전화번호
+            </label>
+            <input
+              className={styles.input}
+              type="text"
+              name="phone"
+              required
+              value={phone}
+              placeholder="전화번호"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <div className={styles.buttonBox}>
+            <button type="submit" className={styles.formButton}>
+              제출
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

@@ -62,27 +62,38 @@
 
 .formContainer {
   display: flex;
-  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
   justify-content: center;
   flex-direction: column;
   color: black;
+  text-align: left;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.label {
+  margin-bottom: 10px;
+}
+
+.input {
+  height: 40px;
+  font-size: 20px;
+}
+
+.buttonBox {
+  display: flex;
+  justify-content: center;
 }
 
 .formButton {
   width: 100px;
   cursor: pointer;
   margin-top: 10px;
-  position: relative;
-}
-
-.label {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.p {
-  margin: 0;
-  text-align: left;
 }
 
 .linkContainer {
