@@ -11,7 +11,7 @@ export default function Home({
   pizzaList,
   admin,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [close, setClose] = useState(true);
+  const [close, setClose] = useState(false);
 
   return (
     <div>
