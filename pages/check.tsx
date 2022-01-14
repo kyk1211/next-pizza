@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 export default function Check() {
   const router = useRouter();
   const { pg_token } = router.query;
-  console.log(pg_token);
   const cart = useSelector((state: RootState) => state.cart);
   const orderInfo = useSelector((state: RootState) => state.order);
 

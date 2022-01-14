@@ -48,7 +48,7 @@ export default function Order({
                   <span className={styles.address}>{data.address}</span>
                 </td>
                 <td>
-                  <span className={styles.total}>{data.total}￦</span>
+                  <span className={styles.total}>{data.total}</span>
                 </td>
               </tr>
             </tbody>
@@ -124,14 +124,14 @@ export default function Order({
           <h2 className={styles.title}>CART TOTAL</h2>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Subtotal:</b>
-            {data.total}￦
+            {data.total}
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Discount:</b>0
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Total:</b>
-            {data.total}￦
+            {data.total}
           </div>
           <button disabled className={styles.button}>
             PAID!

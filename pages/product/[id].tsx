@@ -49,7 +49,7 @@ export default function Product({ pizza }: Props) {
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{title}</h1>
-        <span className={styles.price}>{price}￦</span>
+        <span className={styles.price}>{price}</span>
         <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose your size</h3>
         <div className={styles.sizes}>

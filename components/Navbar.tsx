@@ -13,8 +13,8 @@ export default function Navbar() {
           <Image
             src="/img/telephone.png"
             alt=""
-            width={32}
-            height={32}
+            width="32px"
+            height="32px"
             layout="fixed"
           />
         </div>
@@ -25,15 +25,17 @@ export default function Navbar() {
       </div>
       <div className={styles.item}>
         <ul className={styles.list}>
-          <li className={styles.listItem}>Homepage</li>
+          <Link href="/" passHref>
+            <li className={styles.listItem}>Homepage</li>
+          </Link>
           <li className={styles.listItem}>Products</li>
           <li className={styles.listItem}>Menu</li>
           <li>
             <Image
               src="/img/logo.png"
               alt=""
-              width={160}
-              height={69}
+              width="160px"
+              height="69px"
               layout="fixed"
             />
           </li>
@@ -49,8 +51,8 @@ export default function Navbar() {
               <Image
                 src="/img/cart.png"
                 alt=""
-                width={30}
-                height={30}
+                width="30px"
+                height="30px"
                 layout="fixed"
               />
               <div className={styles.counter}>{quan}</div>
