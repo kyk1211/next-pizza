@@ -2,12 +2,12 @@ import styles from '@styles/Add.module.css';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
-  setClose: Dispatch<SetStateAction<boolean>>;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function AddButton({ setClose }: Props) {
+export default function AddButton({ setShow }: Props) {
   return (
-    <div className={styles.mainAddButton} onClick={() => setClose(false)}>
+    <div className={styles.mainAddButton} onClick={() => setShow(true)}>
       Add New
     </div>
   );

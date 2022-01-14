@@ -1,0 +1,28 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+}
+
+.submitBtn {
+  width: 25%;
+  border: none;
+  background-color: teal;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px 0;
+  align-self: center;
+}

@@ -6,12 +6,13 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useState } from 'react';
 import Add from '@components/Add';
 import AddButton from '@components/AddButton';
+import Modal from '@components/Modal';
 
 export default function Home({
   pizzaList,
   admin,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [close, setClose] = useState(false);
+  const [show, setShow] = useState(false);
 
   return (
     <div>
@@ -21,9 +22,11 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Featured />
-      {admin && <AddButton setClose={setClose} />}
+      {admin && <AddButton setShow={setShow} />}
       <PizzaList pizzaList={pizzaList} />
-      {!close && <Add setClose={setClose} />}
+      <Modal setShow={setShow} show={show}>
+        <Add setShow={setShow} />
+      </Modal>
     </div>
   );
 }
