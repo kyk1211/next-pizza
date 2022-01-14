@@ -113,7 +113,18 @@ export default function Admin({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const myCookie = ctx.req.cookies || '';
+
+  if (myCookie.token !== process.env.TOKEN) {
+    return {
+      redirect: {
+        destination: '/admin/login',
+        permanent: false,
+      },
+    };
+  }
+
   const products = await axios.get('http://localhost:3000/api/products');
   const orders = await axios.get('http://localhost:3000/api/orders');
   return {

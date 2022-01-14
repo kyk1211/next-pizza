@@ -27,7 +27,6 @@ export default function Check() {
         data: { tid: orderInfo.tid, pg_token: pg_token, cartId: cart.id },
       })
         .then((res) => {
-          alert('bye');
           console.log(res);
           axios({ url: '/api/orders', method: 'POST', data: data })
             .then((res) => {

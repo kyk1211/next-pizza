@@ -2,7 +2,6 @@ import styles from '@styles/Order.module.css';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { reset } from '@slice/cartSlice';
-import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import axios from 'axios';
 import { useAppDispatch } from '@hooks/useAppDispatch';
