@@ -1,5 +1,5 @@
 import styles from '@styles/Add.module.css';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -9,7 +9,7 @@ interface Props {
 
 interface Extra {
   text?: string;
-  price?: number[];
+  price?: number;
 }
 
 export default function Add({ setShow }: Props) {
@@ -27,7 +27,17 @@ export default function Add({ setShow }: Props) {
   };
 
   const handleExtraInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setExtra({ ...extra, [e.target.name]: e.target.value });
+    const {
+      target: { name },
+    } = e;
+    const {
+      target: { value },
+    } = e;
+    if (name === 'price') {
+      setExtra({ ...extra, [name]: Number(value) });
+    } else {
+      setExtra({ ...extra, [name]: value });
+    }
   };
 
   const handleExtra = () => {
@@ -38,7 +48,34 @@ export default function Add({ setShow }: Props) {
     }
   };
 
-  const handleCreate = async () => {};
+  const handleCreate = async () => {
+    if (!file) return;
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'uploads');
+    try {
+      const uploadRes = await axios.post(
+        'https://api.cloudinary.com/v1_1/dhcnd96hj/image/upload',
+        data
+      );
+      const {
+        data: { url },
+      } = uploadRes;
+      const newProduct = {
+        title,
+        desc,
+        prices,
+        extraOptions: extraOpts,
+        img: url,
+      };
+      await axios.post('/api/products', newProduct);
+      alert('완료');
+      setShow(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <h1>Add a new Pizza</h1>

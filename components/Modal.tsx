@@ -13,7 +13,9 @@ export default function Modal({ children, show, setShow }: Props) {
   }, []);
 
   const onCloseModal = () => {
-    setShow(false);
+    if (window.confirm('창을 닫으시겠습니까?')) {
+      setShow(false);
+    }
   };
 
   if (!show) return null;
