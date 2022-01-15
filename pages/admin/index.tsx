@@ -2,7 +2,7 @@ import styles from '@styles/Admin.module.css';
 import axios from 'axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Admin({
   products,
@@ -32,6 +32,15 @@ export default function Admin({
         res.data,
         ...orderList.filter((order) => order.orderId !== id),
       ]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleOrderDelete = async (id: string) => {
+    try {
+      const res = await axios.delete(`/api/orders/${id}`);
+      setOrderList(orderList.filter((item) => item.orderId !== id));
     } catch (err) {
       console.log(err);
     }
@@ -98,10 +107,13 @@ export default function Admin({
                 <td>{order.orderId.slice(0, 5) + '...'}</td>
                 <td>{order.customer}</td>
                 <td>{order.total}</td>
-                <td>{status[order.status]}</td>
+                <td>{order.status < 3 ? status[order.status] : 'End'}</td>
                 <td>
                   <button onClick={() => handleStatusNext(order.orderId)}>
                     Next Stage
+                  </button>
+                  <button onClick={() => handleOrderDelete(order.orderId)}>
+                    Delete
                   </button>
                 </td>
               </tr>
