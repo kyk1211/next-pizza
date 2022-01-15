@@ -144,7 +144,7 @@ export default function Order({
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { params } = ctx;
   const res = await axios({
-    url: `http://localhost:3000/api/orders/${params?.id}`,
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/api/orders/${params?.id}`,
     method: 'GET',
   });
 

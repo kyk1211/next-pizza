@@ -125,8 +125,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const products = await axios.get('http://localhost:3000/api/products');
-  const orders = await axios.get('http://localhost:3000/api/orders');
+  const products = await axios.get(
+    '${process.env.NEXT_PUBLIC_DOMAIN}/api/products'
+  );
+  const orders = await axios.get(
+    '${process.env.NEXT_PUBLIC_DOMAIN}/api/orders'
+  );
   return {
     props: {
       products: products.data,

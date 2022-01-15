@@ -20,9 +20,9 @@ export default async function handler(
         quantity: cart.quan,
         total_amount: cart.total,
         tax_free_amount: 0,
-        approval_url: `http://localhost:3000/check`,
-        fail_url: `http://localhost:3000`,
-        cancel_url: `http://localhost:3000/cart`,
+        approval_url: `${process.env.NEXT_PUBLIC_DOMAIN}/check`,
+        fail_url: `${process.env.NEXT_PUBLIC_DOMAIN}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_DOMAIN}/cart`,
       };
 
       const data = await axios({
