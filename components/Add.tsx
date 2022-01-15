@@ -54,7 +54,7 @@ export default function Add({ setShow }: Props) {
     data.append('upload_preset', 'uploads');
     try {
       const uploadRes = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
         data
       );
       const {
