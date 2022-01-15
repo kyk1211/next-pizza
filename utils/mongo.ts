@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URL = process.env.NEXT_PUBLIC_MONGODB_URL as string;
+const MONGODB_URL = process.env.MONGODB_URL as string;
 console.log(MONGODB_URL);
 
 if (!MONGODB_URL) {
