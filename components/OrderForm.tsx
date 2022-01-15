@@ -1,9 +1,8 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { setId } from '@slice/cartSlice';
 import { updateInfo } from '@slice/orderSlice';
 import { RootState } from '@slice/store';
 import styles from '@styles/OrderForm.module.css';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 interface Props {
@@ -32,11 +31,6 @@ export default function OrderForm({ tid, setShow, setBtn }: Props) {
     setBtn(true);
     setShow(false);
   };
-
-  useEffect(() => {
-    dispatch(setId());
-    dispatch(updateInfo({ name: '', addr: '', tid: '', phone: '' }));
-  }, [dispatch]);
 
   return (
     <>

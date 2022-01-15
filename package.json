@@ -22,7 +22,8 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

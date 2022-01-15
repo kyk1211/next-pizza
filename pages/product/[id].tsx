@@ -101,7 +101,7 @@ export default function Product({ pizza }: Props) {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/api/products/${params?.id}`
+    `${process.env.DOMAIN}/api/products/${params?.id}`
   );
 
   return {

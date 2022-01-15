@@ -147,6 +147,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     url: `${process.env.DOMAIN}/api/orders/${params?.id}`,
     method: 'GET',
   });
+  if (!res.data) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    };
+  }
 
   return {
     props: {

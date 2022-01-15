@@ -26,11 +26,9 @@ export default function Check() {
         method: 'POST',
         data: { tid: orderInfo.tid, pg_token: pg_token, cartId: cart.id },
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           axios({ url: '/api/orders', method: 'POST', data: data })
-            .then((res) => {
-              console.log(res);
+            .then(() => {
               router.replace(`/orders/${cart.id}`);
             })
             .catch((err) => console.log('mongodb post error: ', err));

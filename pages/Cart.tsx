@@ -3,12 +3,13 @@ import styles from '@styles/Cart.module.css';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { RootState } from '@slice/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { removeProduct } from '@slice/cartSlice';
+import { removeProduct, setId } from '@slice/cartSlice';
 import Modal from '@components/Modal';
 import OrderForm from '@components/OrderForm';
+import { updateInfo } from '@slice/orderSlice';
 
 export default function Cart() {
   const cart = useSelector((state: RootState) => state.cart);
@@ -22,7 +23,7 @@ export default function Cart() {
     if (cart.products.length !== 0) {
       axios({
         method: 'POST',
-        url: '/api/payment/ready',
+        url: `/api/payment/ready`,
         data: {
           ...cart,
         },
@@ -35,6 +36,11 @@ export default function Cart() {
       alert('장바구니가 비었습니다');
     }
   };
+
+  useEffect(() => {
+    dispatch(setId());
+    dispatch(updateInfo({ name: '', addr: '', tid: '', phone: '' }));
+  }, [dispatch]);
 
   return (
     <>
