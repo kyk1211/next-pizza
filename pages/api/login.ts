@@ -2,10 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import cookie from 'cookie';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.cookies.token === process.env.TOKEN) {
-    res.redirect(302, '/admin');
-  }
-
   if (req.method === 'POST') {
     const { username, password } = req.body;
     if (

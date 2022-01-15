@@ -1,7 +1,6 @@
 import styles from '@styles/Add.module.css';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 
 interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -55,7 +54,7 @@ export default function Add({ setShow }: Props) {
     data.append('upload_preset', 'uploads');
     try {
       const uploadRes = await axios.post(
-        'https://api.cloudinary.com/v1_1/dhcnd96hj/image/upload',
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
         data
       );
       const {
