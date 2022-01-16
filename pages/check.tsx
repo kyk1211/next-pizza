@@ -38,6 +38,8 @@ export default function Check() {
           console.log('approve error: ', err);
           router.replace('/cart');
         });
+    } else {
+      router.replace('/');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

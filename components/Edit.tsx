@@ -4,6 +4,7 @@ import axios from 'axios';
 
 interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
+  id: string;
 }
 
 interface Extra {
@@ -11,7 +12,7 @@ interface Extra {
   price?: number;
 }
 
-export default function Add({ setShow }: Props) {
+export default function Edit({ setShow, id }: Props) {
   const [file, setFile] = useState<File>();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -47,7 +48,7 @@ export default function Add({ setShow }: Props) {
     }
   };
 
-  const handleCreate = async () => {
+  const handleEdit = async () => {
     if (!file) return;
     const data = new FormData();
     data.append('file', file);
@@ -152,8 +153,8 @@ export default function Add({ setShow }: Props) {
           ))}
         </div>
       </div>
-      <button className={styles.addButton} onClick={handleCreate}>
-        Create
+      <button className={styles.addButton} onClick={handleEdit}>
+        Edit
       </button>
     </>
   );

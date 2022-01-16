@@ -8,6 +8,7 @@ export default function Admin({
   products,
   orders,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [show, setShow] = useState(false);
   const [pizzaList, setPizzaList] = useState<products[]>(products);
   const [orderList, setOrderList] = useState<orders[]>(orders);
   const status = ['Preparing', 'On the way', 'Delivered'];
@@ -76,7 +77,12 @@ export default function Admin({
                 <td>{product.title}</td>
                 <td>{product.prices[0]}</td>
                 <td>
-                  <button className={styles.button}>Edit</button>
+                  <button
+                    className={styles.button}
+                    onClick={() => setShow(true)}
+                  >
+                    Edit
+                  </button>
                   <button
                     className={styles.button}
                     onClick={() => handleDelete(product._id as string)}
