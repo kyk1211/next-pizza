@@ -71,6 +71,7 @@ export default function Add({ setShow }: Props) {
       alert('완료');
       setShow(false);
     } catch (err) {
+      alert('실패');
       console.log(err);
     }
   };

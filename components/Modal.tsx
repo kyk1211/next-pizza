@@ -24,7 +24,7 @@ export default function Modal({ children, show, setShow }: Props) {
     <div className={styles.container} onClick={onCloseModal}>
       <div onClick={stopPropagation}>
         <div className={styles.wrapper}>
-          <span onClick={() => setShow(false)} className={styles.close}>
+          <span onClick={onCloseModal} className={styles.close}>
             X
           </span>
           {children}

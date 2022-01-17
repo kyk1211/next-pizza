@@ -2,13 +2,13 @@ import styles from '@styles/Admin.module.css';
 import axios from 'axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Admin({
   products,
   orders,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [show, setShow] = useState(false);
   const [pizzaList, setPizzaList] = useState<products[]>(products);
   const [orderList, setOrderList] = useState<orders[]>(orders);
   const status = ['Preparing', 'On the way', 'Delivered'];
@@ -77,11 +77,10 @@ export default function Admin({
                 <td>{product.title}</td>
                 <td>{product.prices[0]}</td>
                 <td>
-                  <button
-                    className={styles.button}
-                    onClick={() => setShow(true)}
-                  >
-                    Edit
+                  <button className={styles.button}>
+                    <Link href={`admin/edit/${product._id}`}>
+                      <a>Edit</a>
+                    </Link>
                   </button>
                   <button
                     className={styles.button}
