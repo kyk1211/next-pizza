@@ -19,12 +19,6 @@ export default function Add({ setShow }: Props) {
   const [extra, setExtra] = useState<Extra>();
   const [extraOpts, setExtraOpts] = useState<Extra[]>([]);
 
-  const changePrice = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
-    const currentPrices = prices;
-    currentPrices[idx] = Number(e.target.value);
-    setPrices(currentPrices);
-  };
-
   const handleExtraInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name },
@@ -99,7 +93,11 @@ export default function Add({ setShow }: Props) {
       </div>
       <div className={styles.item}>
         <label className={styles.label}>Desc</label>
-        <textarea rows={4} onChange={(e) => setDesc(e.target.value)} />
+        <textarea
+          rows={4}
+          onChange={(e) => setDesc(e.target.value)}
+          style={{ resize: 'none' }}
+        />
       </div>
       <div className={styles.item}>
         <label className={styles.label}>Prices</label>
@@ -108,19 +106,37 @@ export default function Add({ setShow }: Props) {
             className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Small"
-            onChange={(e) => changePrice(e, 0)}
+            onChange={(e) =>
+              setPrices((prev) => {
+                const arr = [...prev];
+                arr[0] = Number(e.target.value);
+                return arr;
+              })
+            }
           />
           <input
             className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Medium"
-            onChange={(e) => changePrice(e, 1)}
+            onChange={(e) =>
+              setPrices((prev) => {
+                const arr = [...prev];
+                arr[1] = Number(e.target.value);
+                return arr;
+              })
+            }
           />
           <input
             className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Large"
-            onChange={(e) => changePrice(e, 2)}
+            onChange={(e) =>
+              setPrices((prev) => {
+                const arr = [...prev];
+                arr[2] = Number(e.target.value);
+                return arr;
+              })
+            }
           />
         </div>
       </div>

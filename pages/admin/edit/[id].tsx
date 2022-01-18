@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styles from '@styles/Edit.module.css';
 
 interface Props {
   product: products;
@@ -91,11 +92,12 @@ export default function Edit({ product }: Props) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Edit Product</h1>
-      <div>
-        <label>Choose an image</label>
+      <div className={styles.item}>
+        <label className={styles.label}>Choose an image</label>
         <input
+          className={styles.input}
           type="file"
           onChange={(e) => {
             const files = e.target.files as FileList;
@@ -103,26 +105,29 @@ export default function Edit({ product }: Props) {
           }}
         />
       </div>
-      <div>
-        <label>Title</label>
+      <div className={styles.item}>
+        <label className={styles.label}>Title</label>
         <input
+          className={styles.input}
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div>
-        <label>Desc</label>
+      <div className={styles.item}>
+        <label className={styles.label}>Desc</label>
         <textarea
+          className={styles.textarea}
           rows={4}
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
       </div>
-      <div>
-        <label>Prices</label>
-        <div>
+      <div className={styles.item}>
+        <label className={styles.label}>Prices</label>
+        <div className={styles.priceContainer}>
           <input
+            className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Small"
             value={prices[0]}
@@ -135,6 +140,7 @@ export default function Edit({ product }: Props) {
             }
           />
           <input
+            className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Medium"
             value={prices[1]}
@@ -147,6 +153,7 @@ export default function Edit({ product }: Props) {
             }
           />
           <input
+            className={`${styles.input} ${styles.inputSm}`}
             type="number"
             placeholder="Large"
             value={prices[2]}
@@ -159,34 +166,50 @@ export default function Edit({ product }: Props) {
             }
           />
         </div>
-        <div>
-          <label>Extra</label>
-          <div>
-            <input
-              type="text"
-              placeholder="Item"
-              name="text"
-              onChange={handleExtraInput}
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              name="price"
-              onChange={handleExtraInput}
-            />
-            <button onClick={handleExtra}>Add</button>
-          </div>
-          <div>
-            {extraOpts.map((option) => (
-              <div key={option.text}>
-                <span>{option.text}</span>
-                <span> x</span>
+      </div>
+      <div className={styles.item}>
+        <label className={styles.label}>Extra</label>
+        <div className={styles.extra}>
+          <input
+            className={`${styles.input} ${styles.inputSm}`}
+            type="text"
+            placeholder="Item"
+            name="text"
+            onChange={handleExtraInput}
+          />
+          <input
+            className={`${styles.input} ${styles.inputSm}`}
+            type="number"
+            placeholder="Price"
+            name="price"
+            onChange={handleExtraInput}
+          />
+          <button onClick={handleExtra} className={styles.extraButton}>
+            Add
+          </button>
+        </div>
+        <div className={styles.extraItems}>
+          {extraOpts.map((option) => (
+            <div key={option.text} className={styles.extraItem}>
+              <span>{option.text}</span>
+              <div className={styles.delBtn}>
+                <span
+                  onClick={() =>
+                    setExtraOpts((prev) =>
+                      prev.filter((opts) => opts.text !== option.text)
+                    )
+                  }
+                >
+                  X
+                </span>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-      <button onClick={handleEdit}>Edit</button>
+      <button className={styles.editButton} onClick={handleEdit}>
+        Edit
+      </button>
     </div>
   );
 }
