@@ -20,13 +20,6 @@ export default function Featured() {
 
   return (
     <div className={styles.container}>
-      {/* <div>
-        <ol>
-          <li>o</li>
-          <li>o</li>
-          <li>o</li>
-        </ol>
-      </div> */}
       <div
         className={styles.arrowContainer}
         style={{ left: 0 }}

@@ -88,7 +88,13 @@ export default function Navbar() {
           className={styles.toggle}
           onClick={() => setToggle((prev) => !prev)}
         >
-          tog
+          <Image
+            src={'/img/hamburger.png'}
+            alt=""
+            layout="fixed"
+            width={30}
+            height={30}
+          />
         </button>
       </div>
       {toggle && (
@@ -113,8 +119,9 @@ export default function Navbar() {
             <span>Blog</span>
           </div>
           <div className={styles.menuItem}>
-            <span>Cart</span>
-            <span>{quan}</span>
+            <Link href={`/cart`} passHref>
+              <span>{`Cart: ${quan}`}</span>
+            </Link>
           </div>
         </div>
       )}

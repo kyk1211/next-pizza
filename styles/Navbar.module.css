@@ -90,14 +90,14 @@
   display: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1024px) {
   .container {
     display: none;
   }
 
   .smallContainer {
     display: flex;
-    z-index: 50;
+    z-index: 9999;
     background-color: #d1411e;
     position: sticky;
     top: 0;
@@ -115,8 +115,20 @@
   .toggle {
     border: none;
     border-radius: 10px;
-    width: 10%;
-    height: 60%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    background-color: inherit;
+    cursor: pointer;
+  }
+
+  @keyframes toggle {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
   }
 
   .smallMenu {
@@ -127,6 +139,7 @@
     position: fixed;
     top: calc(0% + 50px);
     background-color: #d84b0a;
+    animation: toggle 0.5s ease-in-out normal forwards;
   }
 
   .menuItem {
