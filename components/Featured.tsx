@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Featured() {
-  const [index, setIndex] = useState<number>(0);
-  const images: string[] = [
+  const [index, setIndex] = useState(0);
+  const images = [
     '/img/featured.png',
     '/img/featured2.png',
     '/img/featured3.png',
@@ -20,6 +20,13 @@ export default function Featured() {
 
   return (
     <div className={styles.container}>
+      {/* <div>
+        <ol>
+          <li>o</li>
+          <li>o</li>
+          <li>o</li>
+        </ol>
+      </div> */}
       <div
         className={styles.arrowContainer}
         style={{ left: 0 }}
