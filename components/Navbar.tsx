@@ -125,6 +125,34 @@ export default function Navbar() {
           </div>
         </div>
       )}
+      {toggle || (
+        <div className={styles.smallMenuClose}>
+          <div className={styles.menuItem}>
+            <span>
+              ORDER NOW
+              <br />
+              {'031 ' + '789 ' + '1234'}
+            </span>
+          </div>
+          <div className={styles.menuItem}>
+            <span>Products</span>
+          </div>
+          <div className={styles.menuItem}>
+            <span>Menu</span>
+          </div>
+          <div className={styles.menuItem}>
+            <span>Events</span>
+          </div>
+          <div className={styles.menuItem}>
+            <span>Blog</span>
+          </div>
+          <div className={styles.menuItem}>
+            <Link href={`/cart`} passHref>
+              <span>{`Cart: ${quan}`}</span>
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }
