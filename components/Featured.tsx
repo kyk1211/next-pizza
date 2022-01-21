@@ -19,37 +19,70 @@ export default function Featured() {
   };
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.arrowContainer}
-        style={{ left: 0 }}
-        onClick={() => handleArrow('l')}
-      >
-        <Image src="/img/arrowl.png" alt="" layout="fill" objectFit="contain" />
+    <>
+      <div className={styles.container}>
+        <div
+          className={styles.arrowContainer}
+          style={{ left: 0 }}
+          onClick={() => handleArrow('l')}
+        >
+          <Image
+            src="/img/arrowl.png"
+            alt=""
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+        <div
+          className={styles.wrapper}
+          style={{ transform: `translateX(${-100 * index}vw)` }}
+        >
+          {images.map((item, idx) => (
+            <div className={styles.imgContainer} key={idx}>
+              <Image
+                src={item}
+                alt=""
+                layout="fill"
+                objectFit="contain"
+                priority
+              />
+            </div>
+          ))}
+        </div>
+        <div
+          className={styles.arrowContainer}
+          style={{ right: 0 }}
+          onClick={() => handleArrow('r')}
+        >
+          <Image
+            src="/img/arrowr.png"
+            alt=""
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
       </div>
-      <div
-        className={styles.wrapper}
-        style={{ transform: `translateX(${-100 * index}vw)` }}
-      >
-        {images.map((item, idx) => (
-          <div className={styles.imgContainer} key={idx}>
-            <Image
-              src={item}
-              alt=""
-              layout="fill"
-              objectFit="contain"
-              priority
-            />
-          </div>
-        ))}
-      </div>
-      <div
-        className={styles.arrowContainer}
-        style={{ right: 0 }}
-        onClick={() => handleArrow('r')}
-      >
-        <Image src="/img/arrowr.png" alt="" layout="fill" objectFit="contain" />
-      </div>
-    </div>
+      <ul className={styles.indicatorContainer}>
+        {images.map((_, idx) =>
+          idx !== index ? (
+            <div
+              key={idx}
+              className={styles.indicator}
+              onClick={() => setIndex(idx)}
+            >
+              ◉
+            </div>
+          ) : (
+            <div
+              key={idx}
+              className={styles.indicator}
+              onClick={() => setIndex(idx)}
+            >
+              ◎
+            </div>
+          )
+        )}
+      </ul>
+    </>
   );
 }

@@ -36,7 +36,9 @@ export default function Navbar() {
         <div className={styles.item}>
           <ul className={styles.list}>
             <Link href="/" passHref>
-              <li className={styles.listItem}>Home</li>
+              <li className={styles.listItem}>
+                <a>Home</a>
+              </li>
             </Link>
             <li className={styles.listItem}>Products</li>
             <li className={styles.listItem}>Menu</li>
@@ -74,19 +76,23 @@ export default function Navbar() {
       <div className={styles.smallContainer}>
         <div className={styles.smallHead}>
           <Link href="/" passHref>
-            <Image
-              src="/img/logo.png"
-              alt=""
-              width="100px"
-              height="50px"
-              layout="fixed"
-            />
+            <a>
+              <Image
+                src="/img/logo.png"
+                alt=""
+                width="100px"
+                height="50px"
+                layout="fixed"
+              />
+            </a>
           </Link>
         </div>
 
         <button
           className={styles.toggle}
-          onClick={() => setToggle((prev) => !prev)}
+          onClick={() => {
+            setToggle((prev) => !prev);
+          }}
         >
           <Image
             src={'/img/hamburger.png'}
@@ -97,6 +103,7 @@ export default function Navbar() {
           />
         </button>
       </div>
+      {/* 메뉴 애니메이션 나타나기 */}
       {toggle && (
         <div className={styles.smallMenu}>
           <div className={styles.menuItem}>
@@ -120,11 +127,14 @@ export default function Navbar() {
           </div>
           <div className={styles.menuItem}>
             <Link href={`/cart`} passHref>
-              <span>{`Cart: ${quan}`}</span>
+              <a>
+                <span>{`Cart: ${quan}`}</span>
+              </a>
             </Link>
           </div>
         </div>
       )}
+      {/* 메뉴 애니메이션 사라지기 */}
       {toggle || (
         <div className={styles.smallMenuClose}>
           <div className={styles.menuItem}>
@@ -148,7 +158,9 @@ export default function Navbar() {
           </div>
           <div className={styles.menuItem}>
             <Link href={`/cart`} passHref>
-              <span>{`Cart: ${quan}`}</span>
+              <a>
+                <span>{`Cart: ${quan}`}</span>
+              </a>
             </Link>
           </div>
         </div>
