@@ -149,12 +149,16 @@
     background-color: #d84b0a;
   }
 
-  .smallMenu.on {
+  .smallMenu.in {
     animation: toggle 0.5s ease-in-out normal forwards;
   }
 
   .smallMenu.out {
     animation: toggle 0.5s ease-in-out reverse forwards;
+  }
+
+  .smallMenu.none {
+    display: none;
   }
 
   .menuItem {
