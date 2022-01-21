@@ -10,10 +10,16 @@ export default function Navbar() {
   const router = useRouter();
   const quan = useSelector((state: RootState) => state.cart.quan);
   const [toggle, setToggle] = useState(false);
+  const [ani, setAni] = useState(false);
 
   useEffect(() => {
     setToggle(false);
   }, [router.pathname]);
+
+  const handleToggle = () => {
+    setAni((prev) => !prev);
+    setToggle((prev) => !prev);
+  };
 
   return (
     <>
@@ -36,9 +42,7 @@ export default function Navbar() {
         <div className={styles.item}>
           <ul className={styles.list}>
             <Link href="/" passHref>
-              <li className={styles.listItem}>
-                <a>Home</a>
-              </li>
+              <li className={styles.listItem}>Home</li>
             </Link>
             <li className={styles.listItem}>Products</li>
             <li className={styles.listItem}>Menu</li>
@@ -88,12 +92,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <button
-          className={styles.toggle}
-          onClick={() => {
-            setToggle((prev) => !prev);
-          }}
-        >
+        <button className={styles.toggle} onClick={handleToggle}>
           <Image
             src={'/img/hamburger.png'}
             alt=""
@@ -103,68 +102,65 @@ export default function Navbar() {
           />
         </button>
       </div>
-      {/* 메뉴 애니메이션 나타나기 */}
-      {toggle && (
-        <div className={styles.smallMenu}>
-          <div className={styles.menuItem}>
-            <span>
-              ORDER NOW
-              <br />
-              {'031 ' + '789 ' + '1234'}
-            </span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Products</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Menu</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Events</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Blog</span>
-          </div>
-          <div className={styles.menuItem}>
-            <Link href={`/cart`} passHref>
-              <a>
-                <span>{`Cart: ${quan}`}</span>
-              </a>
-            </Link>
-          </div>
-        </div>
-      )}
-      {/* 메뉴 애니메이션 사라지기 */}
-      {toggle || (
-        <div className={styles.smallMenuClose}>
-          <div className={styles.menuItem}>
-            <span>
-              ORDER NOW
-              <br />
-              {'031 ' + '789 ' + '1234'}
-            </span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Products</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Menu</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Events</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Blog</span>
-          </div>
-          <div className={styles.menuItem}>
-            <Link href={`/cart`} passHref>
-              <a>
-                <span>{`Cart: ${quan}`}</span>
-              </a>
-            </Link>
-          </div>
-        </div>
-      )}
+      {toggle && <ToggleMenu quan={quan} ani={ani} setAni={setAni} />}
     </>
   );
 }
+
+const ToggleMenu = ({
+  quan,
+  ani,
+  setAni,
+}: {
+  quan: number;
+  ani: boolean;
+  setAni: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [render, setRender] = useState(false);
+
+  useEffect(() => {
+    if (ani) setRender(true);
+  }, [ani]);
+
+  const aniEnd = () => {
+    if (!ani) setRender(false);
+  };
+
+  if (!render) return null;
+
+  return (
+    render && (
+      <div
+        className={`${styles.smallMenu} ${ani ? styles.on : styles.out}`}
+        onAnimationEnd={aniEnd}
+      >
+        <div className={styles.menuItem}>
+          <span>
+            ORDER NOW
+            <br />
+            {'031 ' + '789 ' + '1234'}
+          </span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Products</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Menu</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Events</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Blog</span>
+        </div>
+        <div className={styles.menuItem}>
+          <Link href={`/cart`} passHref>
+            <a>
+              <span>{`Cart: ${quan}`}</span>
+            </a>
+          </Link>
+        </div>
+      </div>
+    )
+  );
+};

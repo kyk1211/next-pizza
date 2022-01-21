@@ -118,12 +118,16 @@
 
   .toggle {
     border: none;
-    border-radius: 10px;
     width: 30px;
     height: 30px;
-    position: relative;
-    background-color: inherit;
+    background-color: white;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle:hover {
+    background-color: rgb(219, 219, 219);
   }
 
   @keyframes toggle {
@@ -143,17 +147,13 @@
     position: fixed;
     top: calc(0% + 50px);
     background-color: #d84b0a;
+  }
+
+  .smallMenu.on {
     animation: toggle 0.5s ease-in-out normal forwards;
   }
 
-  .smallMenuClose {
-    width: 100%;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: calc(0% + 50px);
-    background-color: #d84b0a;
+  .smallMenu.out {
     animation: toggle 0.5s ease-in-out reverse forwards;
   }
 
