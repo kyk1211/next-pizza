@@ -5,19 +5,18 @@ import styles from '@styles/Navbar.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import ToggleMenu from './ToggleMenu';
 
 export default function Navbar() {
   const router = useRouter();
   const quan = useSelector((state: RootState) => state.cart.quan);
   const [toggle, setToggle] = useState(false);
-  const [ani, setAni] = useState<'in' | 'out' | null>('in');
 
   useEffect(() => {
     setToggle(false);
   }, [router.pathname]);
 
   const handleToggle = () => {
-    setAni(toggle ? 'in' : 'out');
     setToggle((prev) => !prev);
   };
 
@@ -104,74 +103,7 @@ export default function Navbar() {
           />
         </button>
       </div>
-      {toggle && (
-        <div
-          className={`${styles.smallMenu} ${ani !== null ? styles.in : ''}`}
-          onAnimationEnd={() => setAni(null)}
-        >
-          <div className={styles.menuItem}>
-            <span>
-              ORDER NOW
-              <br />
-              {'031 ' + '789 ' + '1234'}
-            </span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Products</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Menu</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Events</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Blog</span>
-          </div>
-          <div className={styles.menuItem}>
-            <Link href={`/cart`} passHref>
-              <a>
-                <span>{`Cart: ${quan}`}</span>
-              </a>
-            </Link>
-          </div>
-        </div>
-      )}
-      {toggle || (
-        <div
-          className={`${styles.smallMenu} ${
-            ani !== null ? styles.out : styles.none
-          }`}
-          onAnimationEnd={() => setAni(null)}
-        >
-          <div className={styles.menuItem}>
-            <span>
-              ORDER NOW
-              <br />
-              {'031 ' + '789 ' + '1234'}
-            </span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Products</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Menu</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Events</span>
-          </div>
-          <div className={styles.menuItem}>
-            <span>Blog</span>
-          </div>
-          <div className={styles.menuItem}>
-            <Link href={`/cart`} passHref>
-              <a>
-                <span>{`Cart: ${quan}`}</span>
-              </a>
-            </Link>
-          </div>
-        </div>
-      )}
+      <ToggleMenu quan={quan} toggle={toggle} />
     </>
   );
 }
