@@ -10,6 +10,6 @@ module.exports = {
   },
 
   env: {
-    DOMAIN: 'https://next-pizza-gilt.vercel.app/api',
+    DOMAIN: 'https://next-pizza-gilt.vercel.app',
   },
 };
