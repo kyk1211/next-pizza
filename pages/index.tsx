@@ -13,6 +13,7 @@ export default function Home({
   admin,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [show, setShow] = useState(false);
+  const [pizza, setPizza] = useState<products[]>(pizzaList);
 
   return (
     <div>
@@ -23,9 +24,9 @@ export default function Home({
       </Head>
       <Featured />
       {admin && <AddButton setShow={setShow} />}
-      <PizzaList pizzaList={pizzaList} />
+      <PizzaList pizzaList={pizza} />
       <Modal setShow={setShow} show={show}>
-        <Add setShow={setShow} />
+        <Add setShow={setShow} setPizza={setPizza} />
       </Modal>
     </div>
   );

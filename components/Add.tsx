@@ -4,6 +4,7 @@ import axios from 'axios';
 
 interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
+  setPizza: Dispatch<SetStateAction<products[]>>;
 }
 
 interface Extra {
@@ -11,7 +12,7 @@ interface Extra {
   price?: number;
 }
 
-export default function Add({ setShow }: Props) {
+export default function Add({ setShow, setPizza }: Props) {
   const [file, setFile] = useState<File>();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -63,6 +64,8 @@ export default function Add({ setShow }: Props) {
       };
       await axios.post('/api/products', newProduct);
       alert('완료');
+      const pizza = await axios.get('/api/products');
+      setPizza(pizza.data);
       setShow(false);
     } catch (err) {
       alert('실패');
