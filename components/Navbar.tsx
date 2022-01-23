@@ -103,7 +103,34 @@ export default function Navbar() {
           />
         </button>
       </div>
-      <ToggleMenu quan={quan} toggle={toggle} />
+      <ToggleMenu quan={quan} toggle={toggle}>
+        <div className={styles.menuItem}>
+          <span>
+            ORDER NOW
+            <br />
+            {'031 ' + '789 ' + '1234'}
+          </span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Products</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Menu</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Events</span>
+        </div>
+        <div className={styles.menuItem}>
+          <span>Blog</span>
+        </div>
+        <div className={styles.menuItem}>
+          <Link href={`/cart`} passHref>
+            <a>
+              <span>{`Cart: ${quan}`}</span>
+            </a>
+          </Link>
+        </div>
+      </ToggleMenu>
     </>
   );
 }

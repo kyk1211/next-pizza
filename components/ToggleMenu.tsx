@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from '@styles/ToggleMenu.module.css';
-import Link from 'next/link';
 
 interface Props {
   quan: number;
   toggle: boolean;
+  children: React.ReactNode;
 }
 
-export default function ToggleMenu({ quan, toggle }: Props) {
+export default function ToggleMenu({ quan, toggle, children }: Props) {
   const [show, setShow] = useState(toggle);
   const [ani, setAni] = useState<'in' | 'out' | 'none' | null>('none');
 
@@ -28,6 +28,7 @@ export default function ToggleMenu({ quan, toggle }: Props) {
   };
 
   if (!show) return null;
+
   return (
     <div
       className={`${styles.smallMenu} ${
@@ -35,32 +36,7 @@ export default function ToggleMenu({ quan, toggle }: Props) {
       }`}
       onAnimationEnd={aniEnd}
     >
-      <div className={styles.menuItem}>
-        <span>
-          ORDER NOW
-          <br />
-          {'031 ' + '789 ' + '1234'}
-        </span>
-      </div>
-      <div className={styles.menuItem}>
-        <span>Products</span>
-      </div>
-      <div className={styles.menuItem}>
-        <span>Menu</span>
-      </div>
-      <div className={styles.menuItem}>
-        <span>Events</span>
-      </div>
-      <div className={styles.menuItem}>
-        <span>Blog</span>
-      </div>
-      <div className={styles.menuItem}>
-        <Link href={`/cart`} passHref>
-          <a>
-            <span>{`Cart: ${quan}`}</span>
-          </a>
-        </Link>
-      </div>
+      {children}
     </div>
   );
 }

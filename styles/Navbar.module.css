@@ -129,4 +129,21 @@
   .toggle:hover {
     background-color: rgb(219, 219, 219);
   }
+
+  .menuItem {
+    border-bottom: 1px solid rgb(168, 167, 167);
+    padding-left: 10px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menuItem:last-child {
+    border-bottom: 2px solid rgb(168, 167, 167);
+  }
+
+  .menuItem span {
+    cursor: pointer;
+  }
 }
