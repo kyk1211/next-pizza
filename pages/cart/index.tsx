@@ -111,7 +111,7 @@ export default function Cart() {
             <h2 className={styles.title}>CART TOTAL</h2>
             <div className={styles.totalText}>
               <b className={styles.totalTextTitle}>Subtotal:</b>
-              {`${cart.total} ￦`}
+              {`${cart.total.toLocaleString()} ￦`}
             </div>
             <div className={styles.totalText}>
               <b className={styles.totalTextTitle}>Discount:</b>
@@ -119,7 +119,7 @@ export default function Cart() {
             </div>
             <div className={styles.totalText}>
               <b className={styles.totalTextTitle}>Total:</b>
-              {`${cart.total} ￦`}
+              {`${cart.total.toLocaleString()} ￦`}
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
               <button className={styles.button} onClick={payStartClick}>

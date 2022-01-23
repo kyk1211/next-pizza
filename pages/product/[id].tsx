@@ -49,7 +49,7 @@ export default function Product({ pizza }: Props) {
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{title}</h1>
-        <span className={styles.price}>{price}</span>
+        <span className={styles.price}>{price.toLocaleString()}￦</span>
         <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose your size</h3>
         <div className={styles.sizes}>
@@ -103,6 +103,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const res = await axios.get(
     `${process.env.DOMAIN}/api/products/${params?.id}`
   );
+
+  if (!res.data) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    };
+  }
 
   return {
     props: {
