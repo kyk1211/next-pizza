@@ -14,13 +14,13 @@ export default function PizzaCard({ pizza }: Props) {
       <Link href={`/product/${_id}`} passHref>
         <a>
           <Image src={img} alt="" width="500" height="500" />
+          <h1 className={styles.title}>{title}</h1>
+          <span
+            className={styles.price}
+          >{`Small: ${prices[0]}￦, Medium: ${prices[1]}￦, Large: ${prices[2]}￦`}</span>
+          <p className={styles.desc}>{desc}</p>
         </a>
       </Link>
-      <h1 className={styles.title}>{title}</h1>
-      <span
-        className={styles.price}
-      >{`Small: ${prices[0]}￦, Medium: ${prices[1]}￦, Large: ${prices[2]}￦`}</span>
-      <p className={styles.desc}>{desc}</p>
     </div>
   );
 }

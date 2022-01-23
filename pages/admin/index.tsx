@@ -111,7 +111,10 @@ export default function Admin({
           {orderList.map((order) => (
             <tbody key={order._id}>
               <tr className={styles.trTitle}>
-                <td onClick={() => router.replace(`/orders/${order.orderId}`)}>
+                <td
+                  onClick={() => router.replace(`/orders/${order.orderId}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   {order.orderId.slice(0, 5) + '...'}
                 </td>
                 <td>{order.customer}</td>

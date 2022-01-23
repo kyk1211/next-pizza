@@ -8,13 +8,8 @@ interface Props {
 export default function PizzaList({ pizzaList }: Props) {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>The best pizza in town</h1>
-      <p className={styles.desc}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ex
-        eros, ornare vitae suscipit pharetra, imperdiet ut quam. Sed eu volutpat
-        ex. Etiam neque quam, iaculis nec tellus a, maximus ornare ipsum. Cras
-        tempus vitae ligula eget ornare.
-      </p>
+      <h1 className={styles.title}>윤구의 피자가게</h1>
+      <p className={styles.desc}>피자는 둥글고 맛있다. 헤헤헤헿</p>
       <div className={styles.wrapper}>
         {pizzaList.map((item) => (
           <PizzaCard key={item._id} pizza={item} />
