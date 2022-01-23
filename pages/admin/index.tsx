@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function Admin({
@@ -12,6 +13,7 @@ export default function Admin({
   const [pizzaList, setPizzaList] = useState<products[]>(products);
   const [orderList, setOrderList] = useState<orders[]>(orders);
   const status = ['Preparing', 'On the way', 'Delivered'];
+  const router = useRouter();
 
   const handleDelete = async (id: string) => {
     try {
@@ -109,7 +111,9 @@ export default function Admin({
           {orderList.map((order) => (
             <tbody key={order._id}>
               <tr className={styles.trTitle}>
-                <td>{order.orderId.slice(0, 5) + '...'}</td>
+                <td onClick={() => router.replace(`/orders/${order.orderId}`)}>
+                  {order.orderId.slice(0, 5) + '...'}
+                </td>
                 <td>{order.customer}</td>
                 <td>{order.total}</td>
                 <td>{order.status < 3 ? status[order.status] : 'End'}</td>
