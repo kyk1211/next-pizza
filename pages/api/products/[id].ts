@@ -1,6 +1,7 @@
 import dbConnect from '@utils/mongo';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Product from '@models/Product';
+import mongoose from 'mongoose';
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,13 +10,12 @@ export default async function handler(
   const { method, query, cookies } = req;
   const { id } = query;
   const token = cookies.token;
-  console.log(id);
 
   await dbConnect();
 
   if (method === 'PUT') {
     if (!token || token !== process.env.TOKEN) {
-      res.status(401).json('admin이 아닙니다');
+      return res.status(401).json('admin이 아닙니다');
     }
     try {
       const product = await Product.findByIdAndUpdate(id, req.body, {
@@ -29,7 +29,7 @@ export default async function handler(
 
   if (method === 'DELETE') {
     if (!token || token !== process.env.TOKEN) {
-      res.status(401).json('admin이 아닙니다');
+      return res.status(401).json('admin이 아닙니다');
     }
     try {
       await Product.findByIdAndDelete(id);

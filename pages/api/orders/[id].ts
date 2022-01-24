@@ -23,7 +23,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (method === 'DELETE') {
     if (!token || token !== process.env.TOKEN) {
-      res.status(401).json('admin이 아닙니다');
+      return res.status(401).json('admin이 아닙니다');
     }
     try {
       await Order.findOneAndDelete({ orderId: id });

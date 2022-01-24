@@ -99,16 +99,18 @@ export default function Product({ pizza }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const res = await axios.get(
-    `${process.env.DOMAIN}/api/products/${params?.id}`
-  );
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { params } = ctx;
+  const res = await axios({
+    url: `${process.env.DOMAIN}/api/products/${params?.id}`,
+    method: 'GET',
+  });
 
   if (!res.data) {
     return {
       redirect: {
-        permanent: false,
         destination: '/',
+        permanent: false,
       },
       props: {},
     };
