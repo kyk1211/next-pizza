@@ -5,7 +5,7 @@ module.exports = {
     domains: ['res.cloudinary.com'],
   },
   env: {
-    // DOMAIN: 'https://next-pizza-gilt.vercel.app',
-    DOMAIN: 'http://localhost:3000',
+    DOMAIN: 'https://next-pizza-gilt.vercel.app',
+    // DOMAIN: 'http://localhost:3000',
   },
 };
