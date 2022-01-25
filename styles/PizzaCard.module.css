@@ -1,12 +1,15 @@
 .container {
-  width: auto;
-  height: min-content;
+  width: 250px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px 40px;
   cursor: pointer;
+}
+
+.container:hover {
   box-shadow: 1px 1px 1px 1px gray;
 }
 
@@ -34,6 +37,45 @@
   width: fit-content;
   text-align: center;
   color: #777;
+}
+
+.modalContainer {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  gap: 20px;
+}
+.modalLeft {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalRight {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px 10px;
+  gap: 15px;
+}
+
+.modalRight .desc {
+  width: 100%;
+}
+
+.modalRight .title {
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.modalBtn {
+  align-self: flex-end;
+  background-color: inherit;
+  border: none;
+  text-decoration: underline;
+  color: rgb(88, 41, 41);
 }
 
 @media screen and (max-width: 480px) {

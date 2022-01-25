@@ -30,7 +30,7 @@ export default function Featured() {
     if (!mouse) {
       const timer = setTimeout(() => {
         handleArrow('r');
-      }, 1000);
+      }, 5000);
       setAuto(timer);
     }
   }, [handleArrow, mouse, index]);

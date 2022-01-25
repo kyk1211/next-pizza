@@ -1,10 +1,21 @@
 .container {
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: auto;
 }
 
+.inputContainer {
+  align-self: flex-end;
+  padding-bottom: 10px;
+}
+
+.searchbar:focus {
+  outline: none;
+  height: 30px;
+}
 .wrapper {
   display: flex;
   align-items: center;
@@ -13,21 +24,9 @@
   gap: 10px;
   margin: 5px 0px;
 }
-
-.wrapper > div {
-  width: 90vw;
-}
-
-.searchbar:focus {
-  outline: none;
-}
 @media screen and (min-width: 480px) {
   .wrapper {
     flex-direction: row;
     flex-wrap: wrap;
-    flex: 1;
-  }
-  .wrapper > div {
-    width: auto;
   }
 }
