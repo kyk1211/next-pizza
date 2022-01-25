@@ -9,6 +9,7 @@
   font-size: 24px;
   color: #444;
   width: 70%;
+  text-align: center;
 }
 
 .wrapper {
@@ -17,13 +18,11 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 10px;
+  flex: 1;
 }
 
 @media screen and (max-width: 480px) {
-  .title {
-    text-align: center;
-  }
-
   .desc {
     width: 90%;
     text-align: center;

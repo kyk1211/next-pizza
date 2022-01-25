@@ -45,7 +45,11 @@ export default function Navbar() {
                 <a>Home</a>
               </li>
             </Link>
-            <li className={styles.listItem}>Products</li>
+            <Link href={'/search'} passHref>
+              <li className={styles.listItem}>
+                <a>Products</a>
+              </li>
+            </Link>
             <li className={styles.listItem}>Menu</li>
             <li>
               <Image
@@ -112,7 +116,11 @@ export default function Navbar() {
           </span>
         </div>
         <div className={styles.menuItem}>
-          <span>Products</span>
+          <Link href={'/search'} passHref>
+            <a>
+              <span>Search</span>
+            </a>
+          </Link>
         </div>
         <div className={styles.menuItem}>
           <span>Menu</span>

@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5px 0px;
+}
+
+.wrapper > div {
+  width: 90vw;
+}
+
+.searchbar:focus {
+  outline: none;
+}
+@media screen and (min-width: 480px) {
+  .wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .wrapper > div {
+    width: auto;
+  }
+}
