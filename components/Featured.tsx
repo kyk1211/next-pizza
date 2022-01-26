@@ -33,6 +33,7 @@ export default function Featured() {
       }, 5000);
       setAuto(timer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleArrow, mouse, index]);
 
   return (

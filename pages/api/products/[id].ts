@@ -18,7 +18,7 @@ export default async function handler(
       return res.status(401).json('admin이 아닙니다');
     }
     try {
-      const product = await Product.findByIdAndUpdate(id, req.body, {
+      const product = await Product.updateOne({ _id: id }, req.body, {
         new: true,
       });
       res.status(200).json(product);
@@ -32,7 +32,7 @@ export default async function handler(
       return res.status(401).json('admin이 아닙니다');
     }
     try {
-      await Product.findByIdAndDelete(id);
+      await Product.deleteOne({ _id: id });
       res.status(200).json('The product has been deleted!');
     } catch (err) {
       res.status(500).json(err);

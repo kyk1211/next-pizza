@@ -53,6 +53,7 @@ export default function Admin({
     if (window.confirm('로그아웃 하시겠습니까?')) {
       try {
         const res = await axios.delete(`/api/login`);
+        router.replace('/admin/login');
       } catch (err) {
         console.log(err);
       }
@@ -93,7 +94,7 @@ export default function Admin({
                 <td>{product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>
-                    <Link href={`admin/edit/${product._id}`}>
+                    <Link href={`/admin/edit/${product._id}`}>
                       <a>Edit</a>
                     </Link>
                   </button>
