@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import styles from '@styles/Search.module.css';
 import Loading from '@components/Loading';
+import SearchInput from '@components/SearchInput';
 
 export default function Search({ pizzaList }: { pizzaList: products[] }) {
   const [key, setKey] = useState('');
@@ -25,13 +26,7 @@ export default function Search({ pizzaList }: { pizzaList: products[] }) {
     <div className={styles.container}>
       <h1 className={styles.title}>Products</h1>
       <div className={styles.inputContainer}>
-        <input
-          className={styles.searchbar}
-          type={'text'}
-          value={key}
-          placeholder="검색"
-          onChange={(e) => setKey(e.target.value)}
-        />
+        <SearchInput value={key} setValue={setKey} />
       </div>
       {loading ? (
         <Loading />

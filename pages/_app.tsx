@@ -4,11 +4,12 @@ import Layout from '@components/Layout';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@slice/store';
+import Loading from '@components/Loading';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<Loading />} persistor={persistor}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

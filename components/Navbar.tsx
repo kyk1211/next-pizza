@@ -50,7 +50,7 @@ export default function Navbar() {
                 <a>Products</a>
               </li>
             </Link>
-            <li className={styles.listItem}>Menu</li>
+            <li className={styles.listItem}>Orders</li>
             <li>
               <Image
                 src="/img/logo.png"
@@ -118,12 +118,12 @@ export default function Navbar() {
         <div className={styles.menuItem}>
           <Link href={'/search'} passHref>
             <a>
-              <span>Search</span>
+              <span>Products</span>
             </a>
           </Link>
         </div>
         <div className={styles.menuItem}>
-          <span>Menu</span>
+          <span>Orders</span>
         </div>
         <div className={styles.menuItem}>
           <span>Events</span>

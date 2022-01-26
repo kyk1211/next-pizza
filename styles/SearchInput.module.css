@@ -1,0 +1,6 @@
+.searchbar {
+  height: 1.5rem;
+}
+.searchbar:focus {
+  outline: none;
+}
