@@ -49,8 +49,21 @@ export default function Admin({
     }
   };
 
+  const handleLogOut = async () => {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
+      try {
+        const res = await axios.delete(`/api/login`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.btn} onClick={handleLogOut}>
+        LogOut
+      </button>
       <div className={styles.item}>
         <h1 className={styles.title}>Products</h1>
         <table className={styles.table}>

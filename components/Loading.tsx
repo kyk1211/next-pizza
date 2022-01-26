@@ -5,8 +5,8 @@ export default function Loading() {
     <ReactLoading
       type={'spin'}
       color={'blue'}
-      height={300}
-      width={300}
+      height={50}
+      width={50}
       delay={100}
     />
   );

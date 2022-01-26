@@ -3,6 +3,10 @@
   display: flex;
 }
 
+.btn {
+  align-self: flex-start;
+}
+
 .item {
   flex: 1;
 }

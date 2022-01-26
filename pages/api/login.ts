@@ -21,4 +21,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(400).json('Wrong Credentials');
     }
   }
+  if (req.method === 'DELETE') {
+    res.setHeader('Set-Cookie', [
+      cookie.serialize('token', '', {
+        maxAge: -1,
+        path: '/',
+      }),
+    ]);
+    res.status(200).json('LogOut');
+  }
 }
