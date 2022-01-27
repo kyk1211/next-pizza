@@ -27,11 +27,13 @@ export default function Cart() {
         data: {
           ...cart,
         },
-      }).then((res) => {
-        setPayUrl(res.data.next_redirect_pc_url);
-        setTid(res.data.tid);
-        setShow(true);
-      });
+      })
+        .then((res) => {
+          setPayUrl(res.data.next_redirect_pc_url);
+          setTid(res.data.tid);
+          setShow(true);
+        })
+        .catch((err) => console.log(err));
     } else {
       alert('장바구니가 비었습니다');
     }

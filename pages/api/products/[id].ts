@@ -18,10 +18,8 @@ export default async function handler(
       return res.status(401).json('admin이 아닙니다');
     }
     try {
-      const product = await Product.updateOne({ _id: id }, req.body, {
-        new: true,
-      });
-      res.status(200).json(product);
+      await Product.updateOne({ _id: id }, req.body);
+      res.status(200).json('Update Success');
     } catch (err) {
       res.status(500).json(err);
     }

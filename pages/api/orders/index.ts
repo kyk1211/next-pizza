@@ -6,7 +6,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { method } = req;
+  const { method, query } = req;
+  const { name, phone } = query;
 
   await dbConnect();
 
@@ -20,11 +21,24 @@ export default async function handler(
   }
 
   if (method === 'GET') {
-    try {
-      const orders = await Order.find();
-      res.status(200).json(orders);
-    } catch (err) {
-      res.status(500).json(err);
+    if (name && phone) {
+      try {
+        const order = await Order.findOne({
+          customer: name,
+          phoneNumber: phone,
+        });
+
+        res.status(200).json(order);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      try {
+        const orders = await Order.find();
+        res.status(200).json(orders);
+      } catch (err) {
+        res.status(500).json(err);
+      }
     }
   }
 }

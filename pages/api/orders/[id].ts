@@ -12,10 +12,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (method === 'PUT') {
     try {
-      const order = await Order.findOneAndUpdate({ orderId: id }, req.body, {
-        new: true,
-      });
-      res.status(200).json(order);
+      await Order.updateOne({ orderId: id }, req.body);
+      res.status(200).json('Update Success');
     } catch (err) {
       res.status(500).json(err);
     }
@@ -26,7 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(401).json('admin이 아닙니다');
     }
     try {
-      await Order.findOneAndDelete({ orderId: id });
+      await Order.deleteOne({ orderId: id });
       res.status(200).json('The product has been deleted!');
     } catch (err) {
       res.status(500).json(err);
