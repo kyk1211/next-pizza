@@ -42,8 +42,8 @@ export default function Admin({
 
   const handleOrderDelete = async (id: string) => {
     try {
-      const res = await axios.delete(`/api/orders/${id}`);
-      setOrderList(orderList.filter((item) => item.orderId !== id));
+      await axios.delete(`/api/orders/${id}`);
+      setOrderList((prev) => prev.filter((item) => item.orderId !== id));
     } catch (err) {
       console.log(err);
     }
@@ -123,7 +123,7 @@ export default function Admin({
             </tr>
           </thead>
           {orderList.map((order) => (
-            <tbody key={order._id}>
+            <tbody key={order.orderId}>
               <tr className={styles.trTitle}>
                 <td
                   onClick={() => router.replace(`/orders/${order.orderId}`)}

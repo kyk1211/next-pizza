@@ -91,21 +91,21 @@ export default function Featured() {
       <ul className={styles.indicatorContainer}>
         {images.map((_, idx) =>
           idx !== index ? (
-            <div
+            <li
               key={idx}
               className={styles.indicator}
               onClick={() => setIndex(idx)}
             >
               ◉
-            </div>
+            </li>
           ) : (
-            <div
+            <li
               key={idx}
               className={styles.indicator}
               onClick={() => setIndex(idx)}
             >
               ◎
-            </div>
+            </li>
           )
         )}
       </ul>

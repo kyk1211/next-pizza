@@ -1,6 +1,8 @@
+import SearchInput from '@components/SearchInput';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styles from '@styles/SearchOrder.module.css';
 
 export default function SearchOrder() {
   const router = useRouter();
@@ -25,16 +27,24 @@ export default function SearchOrder() {
   };
 
   return (
-    <div>
-      <label>
-        고객이름:
-        <input type="text" onChange={(e) => setName(e.target.value)} />
-      </label>
-      <label>
-        전화번호:
-        <input type="text" onChange={(e) => setPhone(e.target.value)} />
-      </label>
-      <button onClick={handleClick}>search</button>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <label className={styles.label}>
+          <p>고객이름</p>
+          <SearchInput value={name} setValue={setName} placeholder={'이름'} />
+        </label>
+        <label className={styles.label}>
+          <p>전화번호</p>
+          <SearchInput
+            value={phone}
+            setValue={setPhone}
+            placeholder={'전화번호'}
+          />
+        </label>
+        <button onClick={handleClick} className={styles.button}>
+          주문조회
+        </button>
+      </div>
     </div>
   );
 }

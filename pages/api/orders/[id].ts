@@ -12,7 +12,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (method === 'PUT') {
     try {
-      await Order.updateOne({ orderId: id }, req.body);
+      await Order.findOneAndUpdate({ orderId: id }, req.body, {
+        new: true,
+      });
       res.status(200).json('Update Success');
     } catch (err) {
       res.status(500).json(err);
