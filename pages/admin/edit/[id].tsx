@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styles from '@styles/Edit.module.css';
+import Image from 'next/image';
 
 interface Props {
   product: products;
@@ -16,6 +17,7 @@ interface Extra {
 export default function Edit({ product }: Props) {
   const router = useRouter();
   const { id } = router.query;
+  const [preImg, setPreImg] = useState<string>();
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState(product.title);
   const [desc, setDesc] = useState(product.desc);
@@ -91,19 +93,48 @@ export default function Edit({ product }: Props) {
     }
   };
 
+  const handleImgInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = reader.result;
+      if (result) {
+        setPreImg(result.toString());
+      }
+    };
+
+    const files = e.target.files as FileList;
+    if (files) {
+      reader.readAsDataURL(files[0]);
+      setFile(files[0]);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1>Edit Product</h1>
-      <div className={styles.item}>
-        <label className={styles.label}>Choose an image</label>
-        <input
-          className={styles.input}
-          type="file"
-          onChange={(e) => {
-            const files = e.target.files as FileList;
-            setFile(files[0]);
-          }}
-        />
+      <div className={styles.preContainer}>
+        <div className={styles.preview}>
+          {preImg ? (
+            <Image alt="" src={preImg} layout="fixed" width={80} height={80} />
+          ) : (
+            <Image
+              src={product.img}
+              alt=""
+              layout="fixed"
+              width={80}
+              height={80}
+            />
+          )}
+        </div>
+        <div className={styles.item}>
+          <label className={styles.label}>Choose an image</label>
+          <input
+            className={styles.input}
+            type="file"
+            onChange={(e) => handleImgInputChange(e)}
+          />
+        </div>
       </div>
       <div className={styles.item}>
         <label className={styles.label}>Title</label>

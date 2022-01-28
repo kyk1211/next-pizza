@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   padding: auto;
   flex-wrap: wrap;
   gap: 10px;

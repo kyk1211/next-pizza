@@ -1,6 +1,7 @@
 import styles from '@styles/Add.module.css';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import axios from 'axios';
+import Image from 'next/image';
 
 interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ export default function Add({ setShow, setPizza }: Props) {
   const [prices, setPrices] = useState<number[]>([]);
   const [extra, setExtra] = useState<Extra>();
   const [extraOpts, setExtraOpts] = useState<Extra[]>([]);
+  const [preImg, setPreImg] = useState<string>();
 
   const handleExtraInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -73,18 +75,42 @@ export default function Add({ setShow, setPizza }: Props) {
     }
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = reader.result;
+      if (result) {
+        setPreImg(result.toString());
+      }
+    };
+
+    const files = e.target.files as FileList;
+    if (files) {
+      reader.readAsDataURL(files[0]);
+      setFile(files[0]);
+    }
+  };
+
   return (
     <>
       <h1>Add a new Pizza</h1>
-      <div className={styles.item}>
-        <label className={styles.label}>Choose an image</label>
-        <input
-          type="file"
-          onChange={(e) => {
-            const files = e.target.files as FileList;
-            setFile(files[0]);
-          }}
-        />
+      <div className={styles.imgContainer}>
+        <div className={styles.preview}>
+          {preImg && (
+            <Image
+              alt=""
+              src={preImg}
+              layout="fixed"
+              width={100}
+              height={100}
+            />
+          )}
+        </div>
+        <div className={styles.item}>
+          <label className={styles.label}>Choose an image</label>
+          <input type="file" onChange={(e) => handleChange(e)} />
+        </div>
       </div>
       <div className={styles.item}>
         <label className={styles.label}>Title</label>
