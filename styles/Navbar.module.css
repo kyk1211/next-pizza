@@ -101,7 +101,7 @@
 
   .smallContainer {
     display: flex;
-    z-index: 9999;
+    z-index: 5000;
     background-color: #d1411e;
     position: sticky;
     top: 0;

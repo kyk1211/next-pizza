@@ -19,7 +19,7 @@
 .wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: column;
   gap: 10px;
   margin: 5px 0px;
@@ -28,6 +28,5 @@
   .wrapper {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
   }
 }

@@ -1,0 +1,38 @@
+.modalContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.modalLeft {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px 10px;
+  gap: 15px;
+}
+
+.modalRight .desc {
+  width: min-content;
+}
+
+.modalRight .title {
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.modalBtn {
+  align-self: flex-end;
+  background-color: inherit;
+  border: none;
+  text-decoration: underline;
+  color: rgb(88, 41, 41);
+}

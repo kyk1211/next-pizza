@@ -22,13 +22,11 @@ export default function Modal({ children, show, setShow }: Props) {
 
   return (
     <div className={styles.container} onClick={onCloseModal}>
-      <div onClick={stopPropagation}>
-        <div className={styles.wrapper}>
-          <span onClick={onCloseModal} className={styles.close}>
-            X
-          </span>
-          {children}
-        </div>
+      <div className={styles.wrapper} onClick={stopPropagation}>
+        <span onClick={onCloseModal} className={styles.close}>
+          X
+        </span>
+        {children}
       </div>
     </div>
   );

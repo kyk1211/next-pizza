@@ -4,7 +4,7 @@
   background-color: rgba(243, 243, 243, 0.5);
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,10 +16,8 @@
   background-color: white;
   padding: 10px 50px;
   border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .close {
