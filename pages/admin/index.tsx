@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Admin({
   products,
@@ -123,7 +123,7 @@ export default function Admin({
             </tr>
           </thead>
           {orderList.map((order) => (
-            <tbody key={order.orderId}>
+            <tbody key={order._id}>
               <tr className={styles.trTitle}>
                 <td
                   onClick={() => router.replace(`/orders/${order.orderId}`)}

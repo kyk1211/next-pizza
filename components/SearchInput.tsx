@@ -11,7 +11,7 @@ export default function SearchInput({ value, setValue, placeholder }: Props) {
   return (
     <input
       className={styles.searchbar}
-      type="text"
+      type="search"
       value={value}
       placeholder={placeholder ? placeholder : '검색'}
       onChange={(e) => setValue(e.target.value)}

@@ -69,9 +69,9 @@ export default function Navbar() {
             <li className={styles.listItem}>Contact</li>
           </ul>
         </div>
-        <Link href={`/cart`} passHref>
-          <a>
-            <div className={styles.item}>
+        <div className={styles.item}>
+          <Link href={`/cart`} passHref>
+            <a>
               <div className={styles.cart}>
                 <Image
                   src="/img/cart.png"
@@ -82,9 +82,9 @@ export default function Navbar() {
                 />
                 <div className={styles.counter}>{quan}</div>
               </div>
-            </div>
-          </a>
-        </Link>
+            </a>
+          </Link>
+        </div>
       </div>
       <div className={styles.smallContainer}>
         <div className={styles.smallHead}>
