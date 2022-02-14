@@ -3,60 +3,63 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function Featured() {
+  const [timer, setTimer] = useState<NodeJS.Timer>();
+  const [indicater, setIndicater] = useState(0);
   const [index, setIndex] = useState(0);
-  const [mouse, setMouse] = useState(false);
-  const [auto, setAuto] = useState<ReturnType<typeof setTimeout>>();
+  const [clone, setClone] = useState([]);
+  const [trans, setTrans] = useState('');
+  const [time, setTime] = useState(300);
   const images = [
     '/img/featured.png',
     '/img/featured2.png',
     '/img/featured3.png',
   ];
+  const len = images.length + 1;
 
   const handleArrow = useCallback(
     (type: 'l' | 'r') => {
       if (type === 'l') {
-        setIndex((prev) => (prev !== 0 ? prev - 1 : images.length - 1));
+        setIndex((prev) => {
+          if (prev <= 0) {
+            return -1;
+          }
+          return (prev - 1 + len) % len;
+        });
+        setTime(300);
       } else if (type === 'r') {
-        setIndex((prev) => (prev !== images.length - 1 ? prev + 1 : 0));
+        setIndex((prev) => (prev + 1) % len);
+        setTime(300);
       }
     },
-    [images.length]
+    [len]
   );
 
   useEffect(() => {
-    if (auto) {
-      clearTimeout(auto);
+    if (timer) {
+      clearInterval(timer);
     }
-    if (!mouse) {
-      const timer = setTimeout(() => {
+    setTimer(
+      setInterval(() => {
         handleArrow('r');
-      }, 5000);
-      setAuto(timer);
-    }
+      }, 5000)
+    );
+    return () => clearInterval(timer as unknown as number);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleArrow, mouse, index]);
+  }, [handleArrow]);
 
   return (
     <>
       <div
         className={styles.container}
-        onMouseEnter={() => setMouse(true)}
-        onMouseLeave={() => setMouse(false)}
+        onMouseEnter={() => clearInterval(timer as unknown as number)}
+        onMouseLeave={() =>
+          setTimer(
+            setInterval(() => {
+              handleArrow('r');
+            }, 5000)
+          )
+        }
       >
-        <div
-          className={styles.arrowContainer}
-          style={{ left: 0 }}
-          onClick={() => handleArrow('l')}
-        >
-          <div style={{ position: 'relative', height: '100px' }}>
-            <Image
-              src="/img/arrowl.png"
-              alt=""
-              layout="fill"
-              objectFit="contain"
-            />
-          </div>
-        </div>
         <div
           className={styles.wrapper}
           style={{ transform: `translateX(${-100 * index}vw)` }}
@@ -75,6 +78,20 @@ export default function Featured() {
         </div>
         <div
           className={styles.arrowContainer}
+          style={{ left: 0 }}
+          onClick={() => handleArrow('l')}
+        >
+          <div style={{ position: 'relative', height: '100px' }}>
+            <Image
+              src="/img/arrowl.png"
+              alt=""
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+        </div>
+        <div
+          className={styles.arrowContainer}
           style={{ right: 0 }}
           onClick={() => handleArrow('r')}
         >
@@ -88,27 +105,7 @@ export default function Featured() {
           </div>
         </div>
       </div>
-      <ul className={styles.indicatorContainer}>
-        {images.map((_, idx) =>
-          idx !== index ? (
-            <li
-              key={idx}
-              className={styles.indicator}
-              onClick={() => setIndex(idx)}
-            >
-              ◉
-            </li>
-          ) : (
-            <li
-              key={idx}
-              className={styles.indicator}
-              onClick={() => setIndex(idx)}
-            >
-              ◎
-            </li>
-          )
-        )}
-      </ul>
+      <ul className={styles.indicatorContainer}></ul>
     </>
   );
 }
