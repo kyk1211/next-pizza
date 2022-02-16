@@ -1,3 +1,8 @@
+.top {
+  background-color: #d1411e;
+  position: relative;
+}
+
 .container {
   height: calc(700px - 100px);
   background-color: #d1411e;
@@ -17,19 +22,22 @@
 }
 
 .wrapper {
-  width: 300vw;
+  width: 500%;
   height: 100%;
   display: flex;
-  transition: all 1s ease-in-out;
 }
 
 .imgContainer {
-  width: 100vw;
+  width: 20%;
   height: 100%;
   position: relative;
 }
 
 .indicatorContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   background-color: #d1411e;
   display: flex;
   align-items: center;
@@ -37,10 +45,19 @@
   gap: 10px;
   padding: 0;
   margin: 0;
+  list-style-type: none;
 }
 
 .indicator {
-  list-style-type: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  background-color: rgb(43, 43, 43);
+  cursor: pointer;
+}
+
+.indicator.selected {
+  background-color: rgb(0, 51, 161);
 }
 
 @media screen and (max-width: 1024px) {

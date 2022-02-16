@@ -26,6 +26,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+  // devTools: false,
 });
 const persistor = persistStore(store);
 // persistor.purge();
