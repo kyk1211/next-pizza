@@ -56,7 +56,7 @@ export default function Featured() {
     if (index === -1) {
       timer1 = setTimeout(() => {
         setTime(0);
-        setIndex(3);
+        setIndex(2);
       }, time);
     }
     return () => clearTimeout(timer1);
