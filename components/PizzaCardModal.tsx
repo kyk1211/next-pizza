@@ -1,7 +1,7 @@
 import styles from '@styles/PizzaCardModal.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import Modal from './Modal';
 
 interface Props {
@@ -17,14 +17,7 @@ export default function PizzaCardModal({ pizza, show, setShow }: Props) {
     <Modal show={show} setShow={setShow}>
       <div className={styles.modalContainer}>
         <div className={styles.modalLeft}>
-          <Image
-            src={img}
-            alt=""
-            layout="fixed"
-            objectFit="contain"
-            width={250}
-            height={250}
-          />
+          <Image src={img} alt="" layout="fixed" objectFit="contain" width={250} height={250} />
         </div>
         <div className={styles.modalRight}>
           <h1 className={styles.title}>{title}</h1>

@@ -3,6 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  min-width: min-content;
 }
 .modalLeft {
   flex: 1;
@@ -21,7 +22,7 @@
 }
 
 .modalRight .desc {
-  width: min-content;
+  width: fit-content;
 }
 
 .modalRight .title {

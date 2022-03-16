@@ -33,11 +33,16 @@ export default function Featured() {
         });
       }
       if (type === 'r') {
-        setIndex((prev) => (prev + 1) % len);
+        setIndex((prev) => {
+          if (prev >= images.length) {
+            return images.length;
+          }
+          return (prev + 1) % len;
+        });
       }
       setTime(500);
     },
-    [len]
+    [images.length, len]
   );
 
   useEffect(() => {
@@ -61,7 +66,7 @@ export default function Featured() {
     }
     return () => clearTimeout(timer1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  }, [index, images.length]);
 
   useEffect(() => {
     if (index === -1) {

@@ -6,9 +6,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import axios from 'axios';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 
-export default function Order({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Order({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const dispatch = useAppDispatch();
   let status = data.status;
 
@@ -69,13 +67,7 @@ export default function Order({
             </div>
           </div>
           <div className={statusClass(1)}>
-            <Image
-              alt=""
-              src="/img/bake.png"
-              width={30}
-              height={30}
-              layout="fixed"
-            />
+            <Image alt="" src="/img/bake.png" width={30} height={30} layout="fixed" />
             <span>Preparing</span>
             <div className={styles.checkedIcon}>
               <Image

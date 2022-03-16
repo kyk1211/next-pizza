@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import styles from '@styles/Modal.module.css';
 
 interface Props {
@@ -15,8 +15,15 @@ export default function Modal({ children, show, setShow }: Props) {
   const onCloseModal = () => {
     if (window.confirm('창을 닫으시겠습니까?')) {
       setShow(false);
+      document.body.style.overflow = 'unset';
     }
   };
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden';
+    }
+  }, [show]);
 
   if (!show) return null;
 
