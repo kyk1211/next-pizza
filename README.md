@@ -17,6 +17,8 @@ https://www.youtube.com/watch?v=Z-hACIsjv4E&t=141s
 
 https://next-pizza-theta.vercel.app
 
+<<<<<<< HEAD
+
 ## 페이지별 설명
 
 ### /
@@ -63,3 +65,6 @@ header의 orders 탭을 클릭하여 접근할 수 있습니다.
 admin 페이지입니다.
 product 수정 및 삭제, 주문 정보 확인 및 주문 단계 이동이 가능합니다.
 주문 코드를 클릭하여 주문 정보 페이지로 이동 가능합니다.
+=======
+
+> > > > > > > 0ffb3406e8bc08191f86a52048bc83e2909ca318
