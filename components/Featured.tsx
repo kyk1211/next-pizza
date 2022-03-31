@@ -9,11 +9,7 @@ export default function Featured() {
   const [clone, setClone] = useState<string[]>([]);
   const [trans, setTrans] = useState('translateX(-100%)');
   const [time, setTime] = useState(500);
-  const [images, _] = useState([
-    '/img/featured.png',
-    '/img/featured2.png',
-    '/img/featured3.png',
-  ]);
+  const [images, _] = useState(['/img/featured.png', '/img/featured2.png', '/img/featured3.png']);
   const len = images.length + 1;
 
   const cloneSlide = (slide: string[]) => {
@@ -61,7 +57,7 @@ export default function Featured() {
     if (index === -1) {
       timer1 = setTimeout(() => {
         setTime(0);
-        setIndex(2);
+        setIndex(images.length - 1);
       }, time);
     }
     return () => clearTimeout(timer1);
@@ -117,50 +113,24 @@ export default function Featured() {
         >
           {clone.map((item, idx) => (
             <div className={styles.imgContainer} key={idx}>
-              <Image
-                src={item}
-                alt=""
-                layout="fill"
-                objectFit="contain"
-                priority
-              />
+              <Image src={item} alt="" layout="fill" objectFit="contain" priority />
             </div>
           ))}
         </div>
-        <div
-          className={styles.arrowContainer}
-          style={{ left: 0 }}
-          onClick={() => handleArrow('l')}
-        >
+        <div className={styles.arrowContainer} style={{ left: 0 }} onClick={() => handleArrow('l')}>
           <div style={{ position: 'relative', height: '100px' }}>
-            <Image
-              src="/img/arrowl.png"
-              alt=""
-              layout="fill"
-              objectFit="contain"
-            />
+            <Image src="/img/arrowl.png" alt="" layout="fill" objectFit="contain" />
           </div>
         </div>
-        <div
-          className={styles.arrowContainer}
-          style={{ right: 0 }}
-          onClick={() => handleArrow('r')}
-        >
+        <div className={styles.arrowContainer} style={{ right: 0 }} onClick={() => handleArrow('r')}>
           <div style={{ position: 'relative', height: '100px' }}>
-            <Image
-              src="/img/arrowr.png"
-              alt=""
-              layout="fill"
-              objectFit="contain"
-            />
+            <Image src="/img/arrowr.png" alt="" layout="fill" objectFit="contain" />
           </div>
         </div>
         <ul className={styles.indicatorContainer}>
           {images.map((_, idx) => (
             <li
-              className={`${styles.indicator} ${
-                idx === indicater ? styles.selected : ''
-              }`}
+              className={`${styles.indicator} ${idx === indicater ? styles.selected : ''}`}
               onClick={() => setIndex(idx)}
               key={idx}
             ></li>
