@@ -1,10 +1,11 @@
 import styles from '@styles/Product.module.css';
 import Image from 'next/image';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { addProduct } from '@slice/cartSlice';
+import { useRouter } from 'next/router';
 
 interface Props {
   pizza: products;
@@ -18,6 +19,7 @@ export default function Product({ pizza }: Props) {
   const [price, setPrice] = useState(prices[size] + extraPrice);
   const [extras, setExtras] = useState<Opts[]>([]);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, opts: Opts) => {
     const checked = e.target.checked;
@@ -39,6 +41,10 @@ export default function Product({ pizza }: Props) {
   useEffect(() => {
     setPrice(prices[size] + extraPrice);
   }, [size, extraPrice, prices]);
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -99,7 +105,19 @@ export default function Product({ pizza }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await axios.get(`${process.env.DOMAIN}/api/products`);
+  const paths = data.data.map((item: products) => {
+    return { params: { id: item._id } };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  console.log(ctx);
   const { params } = ctx;
   const res = await axios({
     url: `${process.env.DOMAIN}/api/products/${params?.id}`,
@@ -120,5 +138,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       pizza: res.data,
     },
+    revalidate: 10,
   };
 };

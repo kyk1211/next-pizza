@@ -23,6 +23,9 @@ export default function Modal({ children, show, setShow }: Props) {
     if (show) {
       document.body.style.overflow = 'hidden';
     }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [show]);
 
   if (!show) return null;
